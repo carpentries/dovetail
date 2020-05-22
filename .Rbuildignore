@@ -1,0 +1,7 @@
+^roxyblox\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^README\.Rmd$
+^cran-comments\.md$
+^\.github$
+^\.pre-commit-config\.yaml$
