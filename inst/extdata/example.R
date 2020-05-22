@@ -1,12 +1,13 @@
-#| This is the text for an exercise.
+#' @title This is the text for an exercise.
 
 ## there might be code as part of the exercise.
 ## but that is not working
 plot(some_undefined_variable)
 
-#| @solution [eval=FALSE]
-#| the solution might include text like this that would explain
-#| why the code doesn’t work
+#' @title SOLUTION
+#' @solution [eval=FALSE]
+#' the solution might include text like this that would explain
+#' why the code doesn’t work
 ## or code
 
 some_undefined_variable
