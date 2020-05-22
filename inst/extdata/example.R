@@ -1,4 +1,5 @@
 #' @title This is the text for an exercise.
+#' @challenge [eval=FALSE]
 
 ## there might be code as part of the exercise.
 ## but that is not working
