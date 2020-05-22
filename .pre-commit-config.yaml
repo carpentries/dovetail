@@ -32,7 +32,6 @@ repos:
           .*\.sh|
           .*\.RData
           )$
-    -   id: lintr
     -   id: parsable-R
     -   id: no-browser-statement
     -   id: deps-in-desc
