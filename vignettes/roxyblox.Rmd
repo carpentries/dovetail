@@ -1,0 +1,195 @@
+---
+title: "roxyblox"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{roxyblox}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(roxyblox)
+```
+# Motivation 
+
+The purpose of the roxyblox package is to provide a way for Carpentries lesson
+contributors to write challenge and solution blocks in a simple and
+straightforward manner. We have taken inspiration from the Roxygen2 style of
+writing documentation above code blocks. For example, here is a function with
+documentation written above it with minimal markup:
+
+```{r roxyxample1}
+#' Add two numbers
+#'
+#' @param x a number
+#' @param y a number
+#' @return the sum of x and y
+#'
+#' @export
+#' @examples
+#' add(1, 2) # 3
+#' add(2, 1)
+add <- function(x, y) {
+  x + y
+}
+```
+
+In the same vein, we could use this sort of syntax to create our own solution
+for generating special callout blocks within the Carpentries lessons, which
+currently rely on the Kramdown interpreter with Jekyll:
+
+````markdown
+```{challenge, eval = FALSE}
+#' @challenge
+#' ## Challenge 2
+#' 
+#' Given the following code:
+#+{r}
+x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
+names(x) <- c('a', 'b', 'c', 'd', 'e')
+print(x)
+#' 
+#' Write a subsetting command to return the values in x that are greater than 4 and less than 7.
+#'
+#' @solution
+#' 
+#' ## Solution to challenge 2
+#+{r}
+x_subset <- x[x<7 & x>4]
+print(x_subset)
+```
+````
+
+## Motivation
+
+The benefit of this is method that it's legible without conversion. Our
+motivation for writing this stems from the way challenge blocks in lessons are
+constructed via block quotes. While this is fine for regular text, it can be
+challenging to write code examples AND ensure that they will render correctly.
+Consider the following block quote (taken from episode 6 of R novice gapminder)
+that gives a challenge block with a single solution block nested within it.
+Within each of these blocks is a code block with R code that should be evaluated.
+
+```
+> ## Challenge 2
+> 
+> Given the following code:
+> 
+> ```{r}
+> x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
+> names(x) <- c('a', 'b', 'c', 'd', 'e')
+> print(x)
+> ```
+> 
+> Write a subsetting command to return the values in x that are greater than 4 and less than 7.
+> 
+> > ## Solution to challenge 2
+> > 
+> > ```{r}
+> > x_subset <- x[x<7 & x>4]
+> > print(x_subset)
+> > ```
+> {: .solution}
+{: .challenge}
+```
+
+When this gets processed by Jekyll, the kramdown tags (`{: .soltuion}`, `{: .challenge}`) are replaced by tags whose underlying css describes how the 
+elements should be displayed. Here is what the resulting HTML would look like:
+
+````html
+<blockquote class="challenge">
+
+  <h2 id="challenge-2">Challenge 2</h2>
+
+  <p>Given the following code:</p>
+
+  <!-- SNIP: highlighted R code and output -->
+
+  <p>Write a subsetting command to return the values in x that are greater than 4 and less than 7.</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-to-challenge-2">Solution to challenge 2<span class="fold-unfold glyphicon glyphicon-collapse-down"></span></h2>
+
+    <!-- SNIP: highlighted R code and output -->
+
+  </blockquote>
+</blockquote>
+````
+
+The nesting here can be a significant distraction for contributors to lesson
+templates because of a few reasons:
+
+1. if you don't have the spacing correct, Jekyll throws strange errors
+2. syntax highlighting is not available within block quotes
+3. evaluation of code within a block quote involves manual copying and pasting
+
+Of course, it's the two tags at the bottom that are doing *a lot* of the work in
+conjunction with the kramdown parser employed by Jekyll. 
+
+The idea behind this package is to write an engine for knitr that will parse a
+code block that looks like this:
+
+```{r "245:1-264:14", eval = FALSE}
+#' @challenge
+#' ## Challenge 2
+#'
+#' Given the following code:
+#+{r}
+x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
+names(x) <- c("a", "b", "c", "d", "e")
+print(x)
+#'
+#' Write a subsetting command to return the values in x that are greater than 4 and less than 7.
+#'
+#' @solution
+#'
+#' ## Solution to challenge 2
+#+{r}
+x_subset <- x[x < 7 & x > 4]
+print(x_subset)
+```
+
+into something that looks closer to this:
+
+
+````markdown
+<blockquote class="challenge" markdown="1">
+
+## Challenge 2
+
+Given the following code:
+
+```{r}
+x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
+names(x) <- c('a', 'b', 'c', 'd', 'e')
+print(x)
+```
+
+Write a subsetting command to return the values in x that are greater than 4 and less than 7.
+
+<blockquote class="solution" markdown="1">
+
+## Solution to challenge 2
+
+```{r}
+x_subset <- x[x<7 & x>4]
+print(x_subset)
+```
+
+</blockquote>
+</blockquote>
+````
+
+
+> Note: we have to add markdown="1" to these tags so that the markdown elements
+> are processed by the kramdown interpreter.
+
+
+# Specifications
