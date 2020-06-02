@@ -7,6 +7,7 @@ Github
 gmail
 https
 Kamvar
+knitr
 LazyData
 Lifecycle
 macOS
@@ -19,6 +20,7 @@ pre
 repo
 repr
 reprex
+rmarkdown
 ROI
 roxy
 roxyblox
@@ -37,6 +39,7 @@ sublicense
 testthat
 tidyverse
 ubuntu
+VignetteBuilder
 www
 Zhian
 zkamvar

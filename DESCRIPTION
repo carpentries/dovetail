@@ -12,7 +12,14 @@ License: MIT + file LICENSE
 Imports: 
     roxygen2
 Suggests: 
-    testthat
+    knitr,
+    rmarkdown,
+    testthat,
+    up2code
+VignetteBuilder: 
+    knitr
+Remotes:
+    zkamvar/up2code
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
