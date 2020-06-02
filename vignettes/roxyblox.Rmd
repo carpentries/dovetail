@@ -193,3 +193,30 @@ print(x_subset)
 
 
 # Specifications
+
+At the moment, we are writing this to parse code chunks within RMarkdown
+documents, with the emphasis on R chunks. Because support for python exists via
+{reticulate}, it should be possible to extend this to Python, but the initial
+proof of concept will focus on R.
+
+Importantly, we are not seeking to introduce novel concepts; we want to use
+existing terminology and tokens to make writing these blocks less complex
+
+ - Chunk engines will generate blockquote HTML elements surrounding markdown
+   blocks with rendered code output.
+ - Roxygen comments (`#' `) indicate markdown prose
+ - Chunk option comments (`#+{r ...}`) immediately precede code and are
+   independent of the overlying chunk
+ - Code within the blockquote will not have any extra markup
+ - blockquote classes are indicated within the Roxygen comments with a roxygen
+   tag and the name of the blockquote type (e.g. `#' @challenge` is the
+   beginning of a challenge block)
+ - Each chunk represents a single blockquote class, which can have any number
+   of nested blockquote classes within
+ - The first line of each chunk be the blockquote tag (e.g. `#' @callout`)
+ - Nested block quotes can be specified with a new tag (e.g. `#' @solution`)
+ - To exit a nested block, add the tag for the parent block (e.g. `#' @challenge`
+   after a solution block)
+ - The end of the chunk will generate a `</blockquote>` tag for each unpaired
+   tag
+ 
