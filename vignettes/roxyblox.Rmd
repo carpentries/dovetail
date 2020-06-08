@@ -17,7 +17,8 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(roxyblox)
 ```
-# Motivation 
+
+# Introduction
 
 The purpose of the roxyblox package is to provide a way for Carpentries lesson
 contributors to write challenge and solution blocks in a simple and
@@ -46,7 +47,7 @@ for generating special callout blocks within the Carpentries lessons, which
 currently rely on the Kramdown interpreter with Jekyll:
 
 ````markdown
-```{challenge, eval = FALSE}
+```{ENGINE, eval = FALSE}
 #' @challenge
 #' ## Challenge 2
 #' 
@@ -66,6 +67,24 @@ x_subset <- x[x<7 & x>4]
 print(x_subset)
 ```
 ````
+
+## Naming ideas
+
+This package is currently called `{roxyblox}`, but I think it's a bit clunky.
+One of the things we want to consider is the fact that we should be able to run
+any language within the chunks. Moreover, because the roxygen tags would
+indicate the type of block to be generated, we would want the package name to be
+the same as the block name to avoid any confusion. I'm adding a couple of
+potential names that are related in some fashion to carpentries, but we
+definitely do not have to follow this.
+
+Add more names as you see fit here:
+
+ - {roxyblox}
+ - {pegboard} <https://en.wikipedia.org/wiki/Pegboard>
+ - {mitre} <https://en.wikipedia.org/wiki/Mitre_joint>
+ - {sawhorse} <https://en.wikipedia.org/wiki/Sawhorse>
+ - {particleboard} <https://en.wikipedia.org/wiki/Particle_board>
 
 ## Motivation
 
@@ -202,21 +221,41 @@ proof of concept will focus on R.
 Importantly, we are not seeking to introduce novel concepts; we want to use
 existing terminology and tokens to make writing these blocks less complex
 
- - Chunk engines will generate blockquote HTML elements surrounding markdown
-   blocks with rendered code output.
+## Chunk specifications
+
+ - Chunk engines will generate markdown blocks with rendered code output
  - Roxygen comments (`#' `) indicate markdown prose
  - Chunk option comments (`#+{r ...}`) immediately precede code and are
    independent of the overlying chunk
- - Code within the blockquote will not have any extra markup
- - blockquote classes are indicated within the Roxygen comments with a roxygen
-   tag and the name of the blockquote type (e.g. `#' @challenge` is the
-   beginning of a challenge block)
- - Each chunk represents a single blockquote class, which can have any number
-   of nested blockquote classes within
- - The first line of each chunk be the blockquote tag (e.g. `#' @callout`)
+ - Code within the chunk will not have any extra markup
+ - Code will be evaluated in the current environment
+ 
+## Tag specifications
+
+div classes are indicated within the Roxygen comments with a roxygen tag
+and the name of the div type (e.g. `#' @challenge` is the beginning of a
+challenge block)
+
+ - Each chunk represents a single div class, which can have any number
+   of nested div classes within
+ - The first line of each chunk be the div tag (e.g. `#' @callout`)
  - Nested block quotes can be specified with a new tag (e.g. `#' @solution`)
  - To exit a nested block, add the tag for the parent block (e.g. `#' @challenge`
    after a solution block)
- - The end of the chunk will generate a `</blockquote>` tag for each unpaired
+ - The end of the chunk will generate a `</div>` tag for each unpaired
    tag
  
+
+## Processing
+
+If we are going via a knitr engine route, then we need to apply our function
+for handling the engine via `knitr::knit_engine$set()`. What happens inside of
+that engine is ultimately up to us.
+
+### Route: knitr
+
+0. convert class tags to div tags (function: `make_div()`)
+1. Transfer text to RMarkdown document (function: `tmp_rmd()`
+2. Render RMarkdown to markdown (function: `knitr::knit()`)
+3. Read in markdown document with `{up2code}` (function: `up2code::Episode$new()`)
+5. render the output as-is 

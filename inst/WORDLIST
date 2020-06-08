@@ -2,6 +2,7 @@ aut
 blockquote
 bursty
 callout
+carpentries
 Carpentries
 CMD
 cre
@@ -19,6 +20,8 @@ LazyData
 Lifecycle
 macOS
 MERCHANTABILITY
+mitre
+Mitre
 NONINFRINGEMENT
 oducible
 oldrel
@@ -49,6 +52,7 @@ testthat
 tidyverse
 ubuntu
 VignetteBuilder
+wikipedia
 www
 Zhian
 zkamvar
