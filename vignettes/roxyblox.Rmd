@@ -271,4 +271,7 @@ The steps we want to do are:
 3. Replace the tags in the text with div declarations and closings, depending on the previous tags
 
 One of the problems I'm seeing with roxygen at the moment is the fact that not all of the code is processed. So if you have
-a function definition and then another line after that, roxygen only sees that first function definition. It may be better just go to through the code and search for the `@challenge` and `@solution` tags to identify challenges and soltuions. 
+a function definition and then another line after that, roxygen only sees that
+first function definition. It may be better just go to through the code and
+search for the `@challenge` and `@solution` tags to identify challenges and
+solutions.

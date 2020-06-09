@@ -10,6 +10,8 @@ Authors@R:
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Imports: 
+    glue,
+    R6,
     roxygen2
 Suggests: 
     knitr,
