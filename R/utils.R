@@ -16,12 +16,12 @@ get_code_boundaries <- function(vec_is_doc) {
   matrix(c(code_start, code_end), ncol = 2)
 }
 
-false_after_true <- function(vec_is_doc) {
+false_after_true <- function(found_docs) {
   # Find TRUE/FALSE boundaries
-  which(vec_is_doc[-length(docs)] & !vec_is_doc[-1]) + 1L
+  which(found_docs[-length(found_docs)] & !found_docs[-1]) + 1L
 }
 
-false_before_true <- function(vec_is_doc) {
+false_before_true <- function(found_docs) {
   # Find FALSE/TRUE boundaries
-  which(!vec_is_doc[-length(docs)] & vec_is_doc[-1])
+  which(!found_docs[-length(found_docs)] & found_docs[-1])
 }
