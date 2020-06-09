@@ -15,3 +15,9 @@ somethng
 \description{
 Roxy challenge
 }
+\examples{
+soln <- system.file("inst", "extdata", "example-number-echo.R",
+  package = "roxyblox"
+)
+roxygen2::parse_file(soln, env = NULL)
+}

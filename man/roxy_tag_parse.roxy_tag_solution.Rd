@@ -15,3 +15,9 @@ somethng
 \description{
 Roxy solution
 }
+\examples{
+soln <- system.file("inst", "extdata", "example-solution-only.R",
+  package = "roxyblox"
+)
+roxygen2::parse_file(soln, env = NULL)
+}

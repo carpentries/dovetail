@@ -8,6 +8,8 @@ CMD
 cre
 css
 dependences
+env
+extdata
 gapminder
 Github
 gmail
@@ -33,6 +35,7 @@ reprex
 reticulate
 rmarkdown
 RMarkdown
+roclet
 ROI
 roxy
 roxyblox
@@ -43,6 +46,8 @@ rstudio
 RStudio
 sexualized
 socio
+soln
+soltuions
 somethng
 stackoverflow
 StackOverflow

@@ -3,12 +3,18 @@
 #' @return somethng
 #' @export
 #' @importFrom roxygen2 roxy_tag_parse
-#' @example
-#' soln <- system.file('inst', 'extdata', 'example-solution-only.R',
-#'   package = 'roxyblox')
+#' @examples
+#' soln <- system.file("inst", "extdata", "example-solution-only.R",
+#'   package = "roxyblox"
+#' )
 #' roxygen2::parse_file(soln, env = NULL)
 roxy_tag_parse.roxy_tag_solution <- function(x) {
-  tag_markdown(x)
+  roxygen2::tag_markdown(x)
+}
+
+#' @export
+roxy_tag_parse.roxy_tag_block <- function(x) {
+  roxygen2::tag_value(x)
 }
 
 #' Roxy challenge
@@ -16,10 +22,11 @@ roxy_tag_parse.roxy_tag_solution <- function(x) {
 #' @return somethng
 #' @export
 #' @importFrom roxygen2 roxy_tag_parse
-#' @example
-#' soln <- system.file('inst', 'extdata', 'example-number-echo.R',
-#'   package = 'roxyblox')
+#' @examples
+#' soln <- system.file("inst", "extdata", "example-number-echo.R",
+#'   package = "roxyblox"
+#' )
 #' roxygen2::parse_file(soln, env = NULL)
 roxy_tag_parse.roxy_tag_challenge <- function(x) {
-  tag_markdown(x)
+  roxygen2::tag_markdown(x)
 }

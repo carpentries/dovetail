@@ -252,10 +252,23 @@ If we are going via a knitr engine route, then we need to apply our function
 for handling the engine via `knitr::knit_engine$set()`. What happens inside of
 that engine is ultimately up to us.
 
-### Route: knitr
+### Route: {knitr}
 
 0. convert class tags to div tags (function: `make_div()`)
 1. Transfer text to RMarkdown document (function: `tmp_rmd()`
 2. Render RMarkdown to markdown (function: `knitr::knit()`)
 3. Read in markdown document with `{up2code}` (function: `up2code::Episode$new()`)
 5. render the output as-is 
+
+#### Parsing Roxygen
+
+I was looking into the processing and it seems that there are two different routes, even within {knitr}. There is adding a new tag and then going as far as adding a roclet. What we want to do is to create a new Rd tag. Details here: <https://roxygen2.r-lib.org/articles/extending.html>
+
+The steps we want to do are:
+
+1. Process the text with `roxygen2::parse_text(txt, env = NULL)`. Having the `env = NULL` there ensures that the code does not get evaluated.
+2. Find the tags within the text 
+3. Replace the tags in the text with div declarations and closings, depending on the previous tags
+
+One of the problems I'm seeing with roxygen at the moment is the fact that not all of the code is processed. So if you have
+a function definition and then another line after that, roxygen only sees that first function definition. It may be better just go to through the code and search for the `@challenge` and `@solution` tags to identify challenges and soltuions. 
