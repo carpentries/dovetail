@@ -65,15 +65,17 @@ Block <- R6::R6Class("Block",
       previous_div <- names(self$divs[private$i_div - 1L])
       should_close <- length(previous_div) && previous_div == "solution"
       what <- names(self$divs[private$i_div])
+      the_thing <- glue::glue("<div class='{what}'>")
       if (should_close) {
         increment <- -1L
+        the_thing <- if (what == "challenge") "" else the_thing
         open <- private$vid(1L)
       } else {
         increment <- 1L
         open <- "\n"
       }
       private$ndiv <- private$ndiv + increment
-      out <- glue::glue("{open}<div class='{what}'>\n\n")
+      out <- glue::glue("{open}{the_thing}\n\n")
       private$i_div <- private$i_div + 1L
       return(out)
     },
