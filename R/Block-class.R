@@ -45,26 +45,26 @@ Block <- R6::R6Class("Block",
   ),
   private = list(
     reset = function() {
-      private$current_div <- 1L
-      private$current_code <- 1L
+      private$i_div <- 1L
+      private$i_code <- 1L
       private$ndiv <- 0L
     },
     ndiv = 0L,
-    current_div = 1L,
-    current_code = 1L,
+    i_div = 1L,
+    i_code = 1L,
     fence = function(i, x = "") {
-      if (i == self$code[private$current_code, 1, drop = TRUE]) {
+      if (i == self$code[private$i_code, 1, drop = TRUE]) {
         x <- glue::glue("\n{x}")
         glue::glue("```{sub('^\n?#+?[+]', '', x)}")
       } else {
-        private$current_code <- private$current_code + 1L
+        private$i_code <- private$i_code + 1L
         glue::glue("{x}\n```")
       }
     },
     div = function() {
-      previous_div <- names(self$divs[private$current_div - 1L])
+      previous_div <- names(self$divs[private$i_div - 1L])
       should_close <- length(previous_div) && previous_div == "solution"
-      what <- names(self$divs[private$current_div])
+      what <- names(self$divs[private$i_div])
       if (should_close) {
         increment <- -1L
         open <- private$vid(1L)
@@ -74,7 +74,7 @@ Block <- R6::R6Class("Block",
       }
       private$ndiv <- private$ndiv + increment
       out <- glue::glue("{open}<div class='{what}'>\n\n")
-      private$current_div <- private$current_div + 1L
+      private$i_div <- private$i_div + 1L
       return(out)
     },
     vid = function(n = private$ndiv) glue::glue("\n{paste(rep('</div>', n), collapse = '')}\n\n")
