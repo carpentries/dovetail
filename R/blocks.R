@@ -26,10 +26,3 @@ roxy_tag_parse.roxy_tag_solution <- function(x) {
 roxy_tag_parse.roxy_tag_challenge <- function(x) {
   tag_section(x)
 }
-
-tag_section <- function(x) {
-  xx <- strsplit(x$raw, "\n")
-  body <- paste(xx[[1]][-1], collapse = "\n")
-  x$val <- c(head = trimws(xx[[1]][1]), body = body)
-  x
-}

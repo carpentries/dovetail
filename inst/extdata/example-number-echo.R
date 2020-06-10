@@ -1,12 +1,12 @@
-#' @challenge
-#' ## Exponentiation
+#' @challenge Exponentiation
 #'
 #' Exponentiation is built into R:
-#+{r}
+#' ```{r}
 2^4
+#' ```
 #'
 #' Write a function called `expo` that uses a loop to calculate the same result.
-#+{r, echo=-1}
+#' ```{r, echo=-1}
 expo <- function(base, power) {
   result <- 1
   for (i in seq(power)) {
@@ -15,11 +15,11 @@ expo <- function(base, power) {
   return(result)
 }
 expo(2, 4)
+#' ```
 #'
-#' @solution
+#' @solution Solution
 #'
-#' ## Solution
-#+
+#' ```{r}
 expo <- function(base, power) {
   result <- 1
   for (i in seq(power)) {
@@ -27,4 +27,4 @@ expo <- function(base, power) {
   }
   return(result)
 }
-#'
+#' ```

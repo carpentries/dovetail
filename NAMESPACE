@@ -2,4 +2,5 @@
 
 S3method(roxy_tag_parse,roxy_tag_challenge)
 S3method(roxy_tag_parse,roxy_tag_solution)
+export(parse_block)
 importFrom(roxygen2,roxy_tag_parse)

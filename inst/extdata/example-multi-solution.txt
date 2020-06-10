@@ -1,5 +1,4 @@
-#' @challenge
-#' ## A Simple Command-Line Program
+#' @challenge A Simple Command-Line Program
 #'
 #' 1. Write a command-line program that does addition and subtraction of two numbers.
 #'
@@ -12,9 +11,8 @@ Rscript arith.R 1 + 2
 Rscript arith.R 3 - 4
 #' ```
 #'
-#' @solution
+#' @solution Solution
 #'
-#' ## Solution
 #' ```{r, engine="bash"}
 cat arith.R
 #' ```
@@ -23,9 +21,7 @@ cat arith.R
 #'
 #' 2. What goes wrong if you try to add multiplication using `*` to the program?
 #'
-#' @solution
-#'
-#' ## Solution
+#' @solution Solution
 #'
 #' An error message is returned due to "invalid input."
 #' This is likely because '\*' has a special meaning in the shell, as a wildcard.
