@@ -9,13 +9,9 @@
 #' )
 #' roxygen2::parse_file(soln, env = NULL)
 roxy_tag_parse.roxy_tag_solution <- function(x) {
-  roxygen2::tag_markdown(x)
+  tag_section(x)
 }
 
-#' @export
-roxy_tag_parse.roxy_tag_block <- function(x) {
-  roxygen2::tag_value(x)
-}
 
 #' Roxy challenge
 #' @param x a tag
@@ -28,5 +24,12 @@ roxy_tag_parse.roxy_tag_block <- function(x) {
 #' )
 #' roxygen2::parse_file(soln, env = NULL)
 roxy_tag_parse.roxy_tag_challenge <- function(x) {
-  roxygen2::tag_markdown(x)
+  tag_section(x)
+}
+
+tag_section <- function(x) {
+  xx <- strsplit(x$raw, "\n")
+  body <- paste(xx[[1]][-1], collapse = "\n")
+  x$val <- c(head = trimws(xx[[1]][1]), body = body)
+  x
 }

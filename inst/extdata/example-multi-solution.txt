@@ -5,17 +5,19 @@
 #'
 #'    **Hint:** Everything argument read from the command-line is interpreted as a character [string]({{ page.root }}/reference.html#string).
 #'    You can convert from a string to a number using the function `as.numeric`.
-#+{r, engine="bash"}
+#' ```{r, engine="bash"}
 Rscript arith.R 1 + 2
-#'
-#+{r, engine="bash"}
+#' ```
+#' ```{r, engine="bash"}
 Rscript arith.R 3 - 4
+#' ```
 #'
 #' @solution
 #'
 #' ## Solution
-#+{r, engine="bash"}
+#' ```{r, engine="bash"}
 cat arith.R
+#' ```
 #'
 #' @challenge
 #'
@@ -35,14 +37,13 @@ cat arith.R
 #'    write a command-line program called `find-pattern.R`
 #'    that lists all the files in the current directory that contain a specific pattern:
 #'
-#+{r, engine="bash"}
+#' ```{r, engine="bash"}
 # For example, searching for the pattern "print-args" returns the two scripts we wrote earlier
 Rscript find-pattern.R print-args
+#' ```
 #'
-#' @solution
+#' @solution Solution
 #'
-#' ## Solution
-#'
-#+{r, engine="bash"}
+#' ```{r, engine="bash"}
 cat find-pattern.R
-#'
+#' ```

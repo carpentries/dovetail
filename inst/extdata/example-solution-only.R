@@ -12,9 +12,10 @@
 #'
 #' Write a function called `kelvin_to_celsius` that takes a temperature in Kelvin
 #' and returns that temperature in Celsius
-#+{r}
+#'
+#' ```{r}
 kelvin_to_celsius <- function(temp) {
   celsius <- temp - 273.15
   return(celsius)
 }
-#'
+#' ```

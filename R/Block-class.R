@@ -4,7 +4,8 @@ Block <- R6::R6Class("Block",
     divs = integer(),
     code = matrix(integer(), nrow = 0, ncol = 2),
     doc = "",
-    initialize = function(txt, doc = "^#+'[ ]?") {
+    initialize = function(txt) {
+      doc <- "^#+'[ ]?"
       if (length(txt) == 1) {
         txt <- strsplit(txt, "\n")
       }
