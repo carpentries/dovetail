@@ -48,23 +48,23 @@ currently rely on the Kramdown interpreter with Jekyll:
 
 ````markdown
 ```{ENGINE, eval = FALSE}
-#' @challenge
-#' ## Challenge 2
+#' @challenge Challenge 2
 #' 
 #' Given the following code:
-#+{r}
+#' ```{r}
 x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
 names(x) <- c('a', 'b', 'c', 'd', 'e')
 print(x)
-#' 
+#' ```
+#'
 #' Write a subsetting command to return the values in x that are greater than 4 and less than 7.
 #'
-#' @solution
-#' 
-#' ## Solution to challenge 2
-#+{r}
+#' @solution Solution to challenge 2
+#'
+# ```{r}
 x_subset <- x[x<7 & x>4]
 print(x_subset)
+#' ```
 ```
 ````
 
@@ -155,56 +155,32 @@ conjunction with the kramdown parser employed by Jekyll.
 The idea behind this package is to write an engine for knitr that will parse a
 code block that looks like this:
 
-```{r "245:1-264:14", eval = FALSE}
-#' @challenge
-#' ## Challenge 2
-#'
+```{r "245:1-264:14", echo = FALSE, comment = NA}
+txt <- "#' @challenge Challenge 2
+#' 
 #' Given the following code:
-#+{r}
+#' ```{r}
 x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
-names(x) <- c("a", "b", "c", "d", "e")
+names(x) <- c('a', 'b', 'c', 'd', 'e')
 print(x)
+#' ```
 #'
 #' Write a subsetting command to return the values in x that are greater than 4 and less than 7.
 #'
-#' @solution
+#' @solution Solution to challenge 2
 #'
-#' ## Solution to challenge 2
-#+{r}
-x_subset <- x[x < 7 & x > 4]
+#' ```{r}
+x_subset <- x[x<7 & x>4]
 print(x_subset)
+#' ```"
+cat(txt)
 ```
 
 into something that looks closer to this:
 
-
-````markdown
-<blockquote class="challenge" markdown="1">
-
-## Challenge 2
-
-Given the following code:
-
-```{r}
-x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
-names(x) <- c('a', 'b', 'c', 'd', 'e')
-print(x)
+```{r result, echo = FALSE, results='asis'}
+cat("````markdown\n", parse_block(txt), "````", sep = "\n")
 ```
-
-Write a subsetting command to return the values in x that are greater than 4 and less than 7.
-
-<blockquote class="solution" markdown="1">
-
-## Solution to challenge 2
-
-```{r}
-x_subset <- x[x<7 & x>4]
-print(x_subset)
-```
-
-</blockquote>
-</blockquote>
-````
 
 
 > Note: we have to add markdown="1" to these tags so that the markdown elements
@@ -225,8 +201,8 @@ existing terminology and tokens to make writing these blocks less complex
 
  - Chunk engines will generate markdown blocks with rendered code output
  - Roxygen comments (`#' `) indicate markdown prose
- - Chunk option comments (`#+{r ...}`) immediately precede code and are
-   independent of the overlying chunk
+ - Code fences will be included in roxygen comments, so ````#' ```{r} ```` 
+   indicates the beginning of an R chunk
  - Code within the chunk will not have any extra markup
  - Code will be evaluated in the current environment
  
@@ -239,6 +215,8 @@ challenge block)
  - Each chunk represents a single div class, which can have any number
    of nested div classes within
  - The first line of each chunk be the div tag (e.g. `#' @callout`)
+ - Any text immediately after the roxygen tag will be converted to a level 2 
+   markdown heading. 
  - Nested block quotes can be specified with a new tag (e.g. `#' @solution`)
  - To exit a nested block, add the tag for the parent block (e.g. `#' @challenge`
    after a solution block)
@@ -254,24 +232,8 @@ that engine is ultimately up to us.
 
 ### Route: {knitr}
 
-0. convert class tags to div tags (function: `make_div()`)
+0. convert class tags to div tags (function: `parse_block()`)
 1. Transfer text to RMarkdown document (function: `tmp_rmd()`
 2. Render RMarkdown to markdown (function: `knitr::knit()`)
-3. Read in markdown document with `{up2code}` (function: `up2code::Episode$new()`)
+3. Read in output (maybe via `up2code::Episode$new()`) and modify artifacts
 5. render the output as-is 
-
-#### Parsing Roxygen
-
-I was looking into the processing and it seems that there are two different routes, even within {knitr}. There is adding a new tag and then going as far as adding a roclet. What we want to do is to create a new Rd tag. Details here: <https://roxygen2.r-lib.org/articles/extending.html>
-
-The steps we want to do are:
-
-1. Process the text with `roxygen2::parse_text(txt, env = NULL)`. Having the `env = NULL` there ensures that the code does not get evaluated.
-2. Find the tags within the text 
-3. Replace the tags in the text with div declarations and closings, depending on the previous tags
-
-One of the problems I'm seeing with roxygen at the moment is the fact that not all of the code is processed. So if you have
-a function definition and then another line after that, roxygen only sees that
-first function definition. It may be better just go to through the code and
-search for the `@challenge` and `@solution` tags to identify challenges and
-solutions.
