@@ -6,19 +6,14 @@
 ## - https://github.com/rstudio/reticulate/blob/master/R/knitr-engine.R
 ## - https://github.com/yonicd/details/blob/master/R/engine.R
 
+
+## Currently not in use
 engine_generic_carp <- function(class) {
   function(options) {
     res <- parse_block(paste(options$code, collapse = "\n"))
-    tmp <- tempfile(fileext = ".md")
-    on.exit(unlink(tmp))
-    knitr::knit(
-      output = tmp,
-      text = res,
-      encoding = "UTF-8",
-      envir = parent.frame()
-    )
-    out <- readLines(tmp)
-    paste(out, collapse = "\n")
+    extract_chunks(res)
+    res
+    paste(res, collapse = "\n")
   }
 }
 
