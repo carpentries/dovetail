@@ -27,8 +27,9 @@ txt <- parse_block("
 #' @solution olleH Solution
 #'
 #' ```{r}
-h$ello
+h$ello  # variables in the current environment are evaluated
 h$ere
+getwd() # working directory is the current directory
 #' ```
 ")
 tmp <- tempfile(fileext = ".md")

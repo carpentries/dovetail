@@ -4,7 +4,6 @@
 #'
 #' @return the modified block with div tags assigned in the appropriate places
 #' @export
-#'
 #' @examples
 #' # Simple example showing that the block can be parsed with knitr in its own
 #' # environment
@@ -17,8 +16,9 @@
 #' #' @solution olleH Solution
 #' #'
 #' #' ```{r}
-#' h$ello
+#' h$ello  # variables in the current environment are evaluated
 #' h$ere
+#' getwd() # working directory is the current directory
 #' #' ```
 #' ")
 #' tmp <- tempfile(fileext = ".md")
@@ -47,6 +47,7 @@ parse_block <- function(txt) {
     stop("there is more than one text block here")
   }
   # Negative look-ahead to identify code lines
+  #
   code_pattern <- "\n(?!#+['][ ]?)"
   TXT <- gsub(code_pattern, "\n#' \\1", txt, perl = TRUE)
   parsed <- roxygen2::parse_text(paste0(TXT, "\nNULL"), env = NULL)
@@ -103,6 +104,5 @@ print_tag <- function(block, previous = NULL, parent = NULL) {
   } else {
     div <- "\n"
   }
-  head <- if (block$val["head"] != "") paste("##", block$val["head"], "\n") else ""
-  paste0(start, div, head, block$val["body"])
+  paste0(start, div, format(block$val))
 }

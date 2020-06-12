@@ -20,3 +20,9 @@ tag_section <- function(x) {
   x$val <- c(head = trimws(xx[[1]][1]), body = body)
   x
 }
+
+
+rxyfmt <- function(x) {
+  head <- if (x$val['head'] == '') '' else paste0("## ", x$val['head'], "\n")
+  paste(head, x$val['body'])
+}
