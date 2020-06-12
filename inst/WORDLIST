@@ -18,6 +18,7 @@ fileext
 gapminder
 Github
 gmail
+http
 https
 Kamvar
 knitr
@@ -44,6 +45,7 @@ reprex
 reticulate
 rmarkdown
 RMarkdown
+Rmd
 roclet
 ROI
 roxy
