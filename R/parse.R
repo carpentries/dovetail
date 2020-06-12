@@ -22,7 +22,7 @@
 #' #' ```
 #' ")
 #' tmp <- tempfile(fileext = ".md")
-#' knitr::knit(output = tmp, text = txt, env = e)
+#' knitr::knit(output = tmp, text = txt, envir = e)
 #' file.edit(tmp)
 #'
 #' # Example of a more typical block
