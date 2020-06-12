@@ -27,8 +27,8 @@ txt <- parse_block("
 #' @solution olleH Solution
 #'
 #' ```{r}
-#' h$ello
-#' h$ere
+h$ello
+h$ere
 #' ```
 ")
 tmp <- tempfile(fileext = ".md")
