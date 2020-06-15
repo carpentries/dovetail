@@ -7,7 +7,8 @@ OUR_TAGS <- c(
   "objectives",
   "prereq",
   "solution",
-  "testimonial"
+  "testimonial",
+  "end"
 )
 
 # Not in function

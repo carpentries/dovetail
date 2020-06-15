@@ -1,6 +1,7 @@
 #' Parse A roxygen-formatted block to into a block to be rendered as markdown
 #'
 #' @param txt a character vector of length 1 that represents a block of text
+#' @param type the type of block any other blocks will be nested in
 #'
 #' @return the modified block with div tags assigned in the appropriate places
 #' @export
@@ -10,7 +11,8 @@
 #' e <- new.env()
 #' assign("h", list(ello = "hello", ere = "there"), env = e)
 #' txt <- parse_block("
-#' #' @challenge Hello Challenge
+#' #' ## Hello Challenge
+#' #'
 #' #' Say hello
 #' #'
 #' #' @solution olleH Solution
@@ -42,7 +44,7 @@
 #' tmp <- tempfile(fileext = ".md")
 #' knitr::knit(output = tmp, text = ptxt, encoding = "UTF-8", envir = parent.frame())
 #' file.edit(tmp)
-parse_block <- function(txt) {
+parse_block <- function(txt, type = "challenge") {
   if (length(txt) != 1) {
     stop("there is more than one text block here")
   }
@@ -59,50 +61,29 @@ parse_block <- function(txt) {
   tags <- vapply(parsed$tags, function(i) i$tag, character(1))
 
   if (all(tags %nin% OUR_TAGS)) {
-    return(paste(vapply(parsed$tags, print_tag, character(1)), collapse = "\n"))
+    return(paste(vapply(parsed$tags, function(i) i$raw, character(1)), collapse = "\n"))
   }
 
 
-  res <- character(length(parsed$tags) + 1L)
+  res <-
+  res <- character(length(parsed$tags) + 2L)
+  res[[1]] <- paste0("<div class='", type, "'>\n")
+  n <- 1L
   previous <- NULL
   parent <- NULL
   for (i in seq(parsed$tags)) {
-    res[[i]] <- print_tag(parsed$tags[[i]], previous, parent)
-    if (i == 1) {
-      parent <- parsed$tags[[i]]$tag
+    block <- parsed$tags[[i]]
+    if (block$tag %nin% OUR_TAGS) {
+      res[[i + 1L]] <- block$raw
+    } else if (block$tag == "end") {
+      res[[i + 1L]] <- paste0("\n</div>\n", block$raw)
+      n <- n - 1L
+    } else {
+      res[[i + 1L]] <- paste0("<div class='", block$tag, "'>\n\n", format(block))
+      n <- n + 1L
     }
-    previous <- parsed$tags[[i]]$tag
   }
   # There will always be a hanging div tag, so we need to close it.
-  res[length(res)] <- if (previous == "solution") "\n</div></div>" else "\n</div>"
+  res[length(res)] <- paste(rep("\n</div>", n), collapse = "\n")
   paste(res, collapse = "\n")
-}
-
-
-#' Print the div tag and text
-#'
-#' @param block a roxygen2 tag
-#' @param previous the value of the previous roxygen tag
-#' @param parent the value of the overall parent tag
-#'
-#' @return a character vector
-#' @keywords internal
-#'
-#' @examples
-print_tag <- function(block, previous = NULL, parent = NULL) {
-  if (block$tag %nin% OUR_TAGS) {
-    return(block$raw)
-  }
-
-  if (!is.null(previous) && previous == "solution" && block$tag != previous) {
-    start <- "\n</div>\n"
-  } else {
-    start <- "\n"
-  }
-  if (is.null(parent) || parent != block$tag) {
-    div <- paste0("<div class='", block$tag, "'>\n\n")
-  } else {
-    div <- "\n"
-  }
-  paste0(start, div, format(block$val))
 }

@@ -5,12 +5,12 @@ test_that("parse_block works with simple cases", {
   txt <- "#' this is a test\n#' ```{r}1 + 1\n#' ```"
   expect_identical(parse_block(txt), gsub("#' ", "", txt, fixed = TRUE))
 
-  txt <- "#' @challenge this is a test\n#' ```{r}1 + 1\n#' ```"
-  expected <- "\n<div class='challenge'>\n\n## this is a test \n```{r}1 + 1\n```\n\n</div>"
+  txt <- "#' @solution this is a test\n#' ```{r}1 + 1\n#' ```"
+  expected <- "<div class='challenge'>\n\n<div class='solution'>\n\n## this is a test\n ```{r}1 + 1\n```\n\n</div>\n\n</div>"
   expect_identical(parse_block(txt), expected)
 
   txt <- parse_block("
-#' @challenge Hello Challenge
+#' Hello Challenge
 #' Say hello
 #'
 #' @solution olleH Solution
@@ -21,10 +21,10 @@ test_that("parse_block works with simple cases", {
 #' ```
 ")
 
-  expect_match(txt, "\n<div class='challenge'>\n\n", fixed = TRUE)
+  expect_match(txt, "<div class='challenge'>\n\n", fixed = TRUE)
   expect_match(txt, "\n<div class='solution'>\n\n", fixed = TRUE)
   expect_match(txt, "\n## olleH Solution", fixed = TRUE)
-  expect_match(txt, "\n</div></div>", fixed = TRUE)
+  expect_match(txt, "\n\n</div>\n\n</div>", fixed = TRUE)
 })
 
 test_that("parse_block works with the examples we have", {

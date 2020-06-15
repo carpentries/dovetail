@@ -1,4 +1,6 @@
-#' Roxy solution
+#' @title Roxygen tags for roxyblox
+#' @rdname roxy_tag_parse
+#'
 #' @param x a tag
 #' @return somethng
 #' @export
@@ -8,8 +10,8 @@
 #'   package = "roxyblox"
 #' )
 #' roxygen2::parse_file(soln, env = NULL)
-roxy_tag_parse.roxy_tag_solution <- function(x) {
-  tag_section(x)
+roxy_tag_parse.roxy_tag_end <- function(x) {
+  roxygen2::tag_value(x)
 }
 #' @export
 #' @rdname roxy_tag_parse
