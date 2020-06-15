@@ -5,6 +5,7 @@ title: Test the different knitr engines
 ```{r setup}
 library(roxyblox)
 library(knitr)
+opts_chunk$set(error = TRUE)
 ```
 
 ```{r some-code}
@@ -46,4 +47,3 @@ Now that we know that there are `r n_words` and `r n_chars` in the sentence. Let
 #' n_words + n_chars
 #' ```
 ```
-
