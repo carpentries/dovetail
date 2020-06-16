@@ -79,7 +79,7 @@ parse_block <- function(txt, type = "challenge") {
       res[[i + 1L]] <- paste0("\n</div>\n", block$raw)
       n <- n - 1L
     } else {
-      res[[i + 1L]] <- paste0("<div class='", block$tag, "'>\n\n", format(block))
+      res[[i + 1L]] <- paste0("\n<div class='", block$tag, "'>\n\n", format(block))
       n <- n + 1L
     }
   }

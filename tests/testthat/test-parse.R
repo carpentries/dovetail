@@ -6,7 +6,7 @@ test_that("parse_block works with simple cases", {
   expect_identical(parse_block(txt), gsub("#' ", "", txt, fixed = TRUE))
 
   txt <- "#' @solution this is a test\n#' ```{r}1 + 1\n#' ```"
-  expected <- "<div class='challenge'>\n\n<div class='solution'>\n\n## this is a test\n ```{r}1 + 1\n```\n\n</div>\n\n</div>"
+  expected <- "<div class='challenge'>\n\n\n<div class='solution'>\n\n## this is a test\n ```{r}1 + 1\n```\n\n</div>\n\n</div>"
   expect_identical(parse_block(txt), expected)
 
   txt <- parse_block("
@@ -34,22 +34,22 @@ test_that("parse_block works with the examples we have", {
   txt <- paste(readLines(f, encoding = "UTF-8"), collapse = "\n")
   ptxt <- parse_block(txt)
 
-  expect_match(ptxt, "\n<div class='challenge'>\n\n", fixed = TRUE)
+  expect_match(ptxt, "<div class='challenge'>\n\n", fixed = TRUE)
   expect_match(ptxt, "\n<div class='solution'>\n\n", fixed = TRUE)
   expect_match(ptxt, "\n## Exponentiation", fixed = TRUE)
   expect_match(ptxt, "\n## Solution", fixed = TRUE)
-  expect_match(ptxt, "\n</div></div>", fixed = TRUE)
+  expect_match(ptxt, "\n\n</div>\n\n</div>", fixed = TRUE)
 
   # multiple solution blocks
   f <- system.file("extdata", "example-multi-solution.txt", package = "roxyblox")
   txt <- paste(readLines(f, encoding = "UTF-8"), collapse = "\n")
   ptxt <- parse_block(txt)
 
-  expect_match(ptxt, "\n<div class='challenge'>\n\n", fixed = TRUE)
+  expect_match(ptxt, "<div class='challenge'>\n\n", fixed = TRUE)
   expect_match(ptxt, "\n<div class='solution'>\n\n", fixed = TRUE)
   expect_length(strsplit(ptxt, "class='solution'")[[1]], 4L)
-  expect_match(ptxt, "\n## A Simple Command-Line Program", fixed = TRUE)
+  expect_match(ptxt, "\n##  A Simple Command-Line Program", fixed = TRUE)
   expect_match(ptxt, "\n## Solution", fixed = TRUE)
-  expect_match(ptxt, "\n</div></div>", fixed = TRUE)
-  expect_match(ptxt, "\n</div>\n", fixed = TRUE)
+  expect_match(ptxt, "\n\n</div>\n\n</div>", fixed = TRUE)
+  expect_match(ptxt, "\n\n\n</div>\n\n\n", fixed = TRUE)
 })
