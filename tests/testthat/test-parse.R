@@ -8,6 +8,7 @@ test_that("parse_block works with simple cases", {
   txt <- "#' @solution this is a test\n#' ```{r}1 + 1\n#' ```"
   expected <- "<div class='challenge'>\n\n\n<div class='solution'>\n\n## this is a test\n ```{r}1 + 1\n```\n\n</div>\n\n</div>"
   expect_identical(parse_block(txt), expected)
+  expect_identical(parse_block(txt, type = "callout"), gsub("challenge", "callout", expected))
 
   txt <- parse_block("
 #' Hello Challenge

@@ -52,8 +52,8 @@ The statements in the body are indented by two spaces, which makes the code easi
 When we call the function, the values we pass to it are assigned to those variables so that we can use them inside the function.
 Inside the function, we use a [return statement]({{ page.root }}/reference.html#return-statement) to send a result back to whoever asked for it.
 
-```{carp "30:1-36:12"}
-#' @callout Automatic Returns
+```{callout "30:1-36:12"}
+#' ## Automatic Returns
 #' 
 #' In R, it is not necessary to include the return statement.
 #' R automatically returns whichever variable is on the last line of the body
@@ -107,8 +107,8 @@ This is our first taste of how larger programs are built: we define basic
 operations, then combine them in ever-larger chunks to get the effect we want.
 Real-life functions will usually be larger than the ones shown here--typically half a dozen to a few dozen lines--but they shouldn't ever be much longer than that, or the next person who reads it won't be able to understand what's going on.
 
-````{carp "83:1-93:5"}
-#' @callout Nesting Functions
+````{callout "83:1-93:5"}
+#' ## Nesting Functions
 #' 
 #' This example showed the output of `fahrenheit_to_celsius` assigned to `temp_C`, which
 #' is then passed to `celsius_to_kelvin` to get the final result. It is also possible
@@ -121,8 +121,8 @@ celsius_to_kelvin(fahrenheit_to_celsius(32.0))
 #' ```
 ````
 
-````{carp "96:1-151:14"}
-#' @challenge Create a Function
+````{challenge "96:1-151:14"}
+#' ## Create a Function
 #' 
 #' In the last lesson, we learned to **c**ombine elements into a vector using the `c` function,
 #' e.g. `x <- c("A", "B", "C")` creates a vector `x` with three elements.
@@ -177,8 +177,8 @@ edges <- function(v) {
 #' ```
 ````
 
-```{carp "153:1-160:12"}
-#' @callout The Call Stack
+```{callout "153:1-160:12"}
+#' ## The Call Stack
 #' 
 #' For a deeper understanding of how functions work,
 #' you'll need to learn how they create their own environments and call other functions.
@@ -188,8 +188,8 @@ edges <- function(v) {
 #' 
 ```
 
-````{carp "162:1-192:14"}
-#' @challenge Named Variables and the Scope of Variables
+````{challenge "162:1-192:14"}
+#' ## Named Variables and the Scope of Variables
 #' 
 #' Functions can accept arguments explicitly assigned to a variable name in
 #' the function call `functionName(variable = value)`, as well as arguments by
@@ -309,8 +309,8 @@ center <- function(data, midpoint) {
 }
 ```
 
-```{carp "283:1-292:12"}
-#' @callout Writing Documentation
+```{callout  "283:1-292:12"}
+#' ## Writing Documentation
 #' 
 #' Formal documentation for R functions is written in separate `.Rd` using a
 #' markup language similar to [LaTeX](https://www.latex-project.org/). You see the result of this documentation
@@ -346,8 +346,8 @@ rescale <- function(v) {
 }
 ```
 
-````{carp "321:1-345:14"}
-#' @challenge Functions to Create Graphs
+````{challenge 321:1-345:14"}
+#' ## Functions to Create Graphs
 #' 
 #' Write a function called `analyze` that takes a filename as an argument
 #' and displays the three graphs produced in the \[previous lesson\]\[01\] (average, min and max inflammation over time.
@@ -372,8 +372,8 @@ analyze <- function(filename) {
 #' ```
 ````
 
-````{carp "347:1-367:14"}
-#' @challenge Rescaling
+````{challenge "347:1-367:14"}
+#' ## Rescaling
 #' 
 #' Write a function `rescale` that takes a vector as input and returns a corresponding vector of values scaled to lie in the range 0 to 1.
 #' (If `L` and `H` are the lowest and highest values in the original vector, then the replacement for a value `v` should be `(v-L) / (H-L)`.)
@@ -478,8 +478,8 @@ We can override this behavior by naming the value as we pass it in:
 display(c = 77)
 ```
 
-```{carp "453:1-464:12"}
-#' @callout Matching Arguments
+```{callout "453:1-464:12"}
+#' ## Matching Arguments
 #' 
 #' To be precise, R has three ways that arguments supplied
 #' by you are matched to the *formal arguments* of the function definition:
@@ -517,8 +517,8 @@ dat <- read.csv(FALSE, "data/inflammation-01.csv")
 
 It fails because `FALSE` is assigned to `file` and the filename is assigned to the argument `header`.
 
-````{carp "488:1-507:14"}
-#' @challenge A Function with Default Argument Values
+````{challenge "488:1-507:14"}
+#' ## A Function with Default Argument Values
 #' 
 #' Rewrite the `rescale` function so that it scales a vector to lie between 0 and 1 by default, but will allow the caller to specify lower and upper bounds if they want.
 #' Compare your implementation to your neighbor's:
