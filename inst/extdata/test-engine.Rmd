@@ -1,6 +1,6 @@
 ---
 title: Test the different knitr engines
----
+output: md_document
 
 ```{r setup}
 library(roxyblox)
@@ -12,7 +12,7 @@ opts_chunk$set(error = TRUE)
 x  <- "The cat purrrs on my lap."
 ```
 
-```{carp test-1}
+```{challenge test-1}
 #' @challenge Count words
 #' 
 #' 1. How many words are in the sentence `x`?
@@ -35,9 +35,9 @@ x  <- "The cat purrrs on my lap."
 #' ```
 ```
 
-Now that we know that there are `r n_words` and `r n_chars` in the sentence. Let's add these 2 numbers
+Now that we know that there are `r n_words` words and `r n_chars` characters in the sentence. Let's add these 2 numbers
 
-```{carp test-2}
+```{challenge test-2}
 #' @challenge add these 2 numbers
 #' 
 #' @solution

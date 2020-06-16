@@ -34,8 +34,9 @@ engine_generic_carp <- function(class) {
   }
 }
 
-engine_challenge <- engine_generic_carp("challenge")
 
 .onLoad <- function(lib, pkg) {
-  knitr::knit_engines$set(carp = engine_challenge)
+  for (i in OUR_TAGS) {
+    knitr::knit_engines$set(setNames(list(engine_generic_carp(i)), i))
+  }
 }
