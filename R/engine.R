@@ -10,6 +10,11 @@
 ## Currently not in use
 engine_generic_carp <- function(class) {
   function(options) {
+    # Avoid errors where there are multiple unnamed chunk labels
+    unc <- knitr::opts_knit$get("unnamed.chunk.label")
+    on.exit(knitr::opts_knit$set(unnamed.chunk.label = unc))
+    knitr::opts_knit$set(unnamed.chunk.label = as.character(Sys.time()))
+
     res <- parse_block(paste(options$code, collapse = "\n"))
     tmp <- tempfile(fileext = ".md")
     on.exit(unlink(tmp))
