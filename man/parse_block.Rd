@@ -4,10 +4,12 @@
 \alias{parse_block}
 \title{Parse A roxygen-formatted block to into a block to be rendered as markdown}
 \usage{
-parse_block(txt)
+parse_block(txt, type = "challenge")
 }
 \arguments{
 \item{txt}{a character vector of length 1 that represents a block of text}
+
+\item{type}{the type of block any other blocks will be nested in}
 }
 \value{
 the modified block with div tags assigned in the appropriate places
@@ -21,14 +23,16 @@ Parse A roxygen-formatted block to into a block to be rendered as markdown
 e <- new.env()
 assign("h", list(ello = "hello", ere = "there"), env = e)
 txt <- parse_block("
-#' @challenge Hello Challenge
+#' ## Hello Challenge
+#'
 #' Say hello
 #'
 #' @solution olleH Solution
 #'
 #' ```{r}
-h$ello
+h$ello  # variables in the current environment are evaluated
 h$ere
+getwd() # working directory is the current directory
 #' ```
 ")
 tmp <- tempfile(fileext = ".md")

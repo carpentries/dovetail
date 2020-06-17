@@ -1,4 +1,4 @@
-#' @challenge Challenge 1
+#' ## Challenge 1
 #'
 #' Write a function called `kelvin_to_celsius()` that takes a temperature in
 #' Kelvin and returns that temperature in Celsius.

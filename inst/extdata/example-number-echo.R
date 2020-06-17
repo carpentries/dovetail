@@ -1,4 +1,4 @@
-#' @challenge Exponentiation
+#' ## Exponentiation
 #'
 #' Exponentiation is built into R:
 #' ```{r}

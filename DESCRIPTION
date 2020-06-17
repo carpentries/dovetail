@@ -11,10 +11,9 @@ Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Imports: 
     glue,
-    R6,
+    knitr,
     roxygen2
 Suggests: 
-    knitr,
     rmarkdown,
     testthat,
     up2code

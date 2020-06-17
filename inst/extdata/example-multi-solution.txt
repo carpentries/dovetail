@@ -1,4 +1,4 @@
-#' @challenge A Simple Command-Line Program
+#' ##  A Simple Command-Line Program
 #'
 #' 1. Write a command-line program that does addition and subtraction of two numbers.
 #'
@@ -17,7 +17,7 @@ Rscript arith.R 3 - 4
 cat arith.R
 #' ```
 #'
-#' @challenge
+#' @end
 #'
 #' 2. What goes wrong if you try to add multiplication using `*` to the program?
 #'
@@ -27,7 +27,7 @@ cat arith.R
 #' This is likely because '\*' has a special meaning in the shell, as a wildcard.
 #'
 #'
-#' @challenge
+#' @end
 #'
 #' 3. Using the function `list.files` introduced in a previous [lesson]({{ page.root }}/03-loops-R/),
 #'    write a command-line program called `find-pattern.R`
