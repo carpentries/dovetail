@@ -4,7 +4,7 @@
 \alias{parse_block}
 \title{Parse A roxygen-formatted block to into a block to be rendered as markdown}
 \usage{
-parse_block(txt, type = "challenge")
+parse_block(txt, type = "challenge", opts = "markdown='1'")
 }
 \arguments{
 \item{txt}{a character vector of length 1 that represents a block of text}

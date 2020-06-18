@@ -44,7 +44,7 @@
 #' tmp <- tempfile(fileext = ".md")
 #' knitr::knit(output = tmp, text = ptxt, encoding = "UTF-8", envir = parent.frame())
 #' file.edit(tmp)
-parse_block <- function(txt, type = "challenge") {
+parse_block <- function(txt, type = "challenge", opts="markdown='1'") {
   if (length(txt) != 1) {
     stop("there is more than one text block here")
   }
@@ -67,7 +67,7 @@ parse_block <- function(txt, type = "challenge") {
 
   res <-
   res <- character(length(parsed$tags) + 2L)
-  res[[1]] <- paste0("<div class='", type, "'>\n")
+  res[[1]] <- paste0("<div class='", type, "' ", opts, ">\n")
   n <- 1L
   previous <- NULL
   parent <- NULL
@@ -79,7 +79,7 @@ parse_block <- function(txt, type = "challenge") {
       res[[i + 1L]] <- paste0("\n</div>\n", block$raw)
       n <- n - 1L
     } else {
-      res[[i + 1L]] <- paste0("\n<div class='", block$tag, "'>\n\n", format(block))
+      res[[i + 1L]] <- paste0("\n<div class='", block$tag, "' ", opts, ">\n\n", format(block))
       n <- n + 1L
     }
   }

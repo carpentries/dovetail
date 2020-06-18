@@ -14,7 +14,7 @@ x  <- "The cat purrrs on my lap."
 ```
 
 ```{challenge}
-#' @challenge Count words
+#' ## Count words
 #' 
 #' 1. How many words are in the sentence `x`?
 #'
@@ -39,7 +39,7 @@ x  <- "The cat purrrs on my lap."
 Now that we know that there are `r n_words` words and `r n_chars` characters in the sentence. Let's add these 2 numbers
 
 ```{challenge}
-#' @challenge add these 2 numbers
+#' ## add these 2 numbers
 #' 
 #' @solution
 #' Are these variables available?
