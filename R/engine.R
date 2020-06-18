@@ -13,7 +13,10 @@ engine_generic_carp <- function(class) {
     # Avoid errors where there are multiple unnamed chunk labels
     unc <- knitr::opts_knit$get("unnamed.chunk.label")
     on.exit(knitr::opts_knit$set(unnamed.chunk.label = unc))
-    knitr::opts_knit$set(unnamed.chunk.label = paste(as.character(Sys.time()), runif(1)))
+    randos <- function() {
+      paste(sample(c(letters, 0:9), 10, replace = TRUE), collapse = "")
+    }
+    knitr::opts_knit$set(unnamed.chunk.label = paste(as.character(Sys.time()), randos()))
 
     res <- parse_block(paste(options$code, collapse = "\n"), type = options$type)
     tmp <- tempfile(fileext = ".md")
@@ -30,9 +33,12 @@ engine_generic_carp <- function(class) {
   }
 }
 
-
+# nocov start
 .onLoad <- function(lib, pkg) {
   for (i in OUR_TAGS) {
-    knitr::knit_engines$set(setNames(list(engine_generic_carp(i)), i))
+    ENG <- list(engine_generic_carp(i))
+    names(ENG) <- i
+    knitr::knit_engines$set(ENG)
   }
 }
+# nocov end
