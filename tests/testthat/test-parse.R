@@ -11,22 +11,16 @@ test_that("parse_block works with simple cases", {
   expect_identical(parse_block(txt, type = "callout"), gsub("challenge", "callout", expected))
   expect_identical(parse_block(txt, opts = "smile=':)'"), gsub("markdown='1'", "smile=':)'", expected, fixed = TRUE))
 
-  txt <- parse_block("
-#' Hello Challenge
-#' Say hello
-#'
-#' @solution olleH Solution
-#'
-#' ```{r}
-#' h$ello
-#' h$ere
-#' ```
-")
+  txt <- "\n#' Hello Challenge\n#' Say hello\n#'\n#' THING olleH Solution\n#'\n#' ```{r}\n#' h$ello\n#' h$ere\n#' ```\n"
 
-  expect_match(txt, "<div class='challenge' markdown='1'>\n\n", fixed = TRUE)
-  expect_match(txt, "\n<div class='solution' markdown='1'>\n\n", fixed = TRUE)
-  expect_match(txt, "\n## olleH Solution", fixed = TRUE)
-  expect_match(txt, "\n\n</div>\n\n</div>", fixed = TRUE)
+  for (i in OUR_TAGS[OUR_TAGS != "end"]) {
+    tg <- parse_block(gsub("THING", paste0("@", i), txt))
+    expect_match(tg, "<div class='challenge' markdown='1'>\n\n", fixed = TRUE)
+    expect_match(tg, paste0("\n<div class='", i, "' markdown='1'>\n\n"), fixed = TRUE)
+    expect_match(tg, "\n## olleH Solution", fixed = TRUE)
+    expect_match(tg, "\n\n</div>\n\n</div>", fixed = TRUE)
+  }
+
 })
 
 test_that("parse_block works with the examples we have", {
