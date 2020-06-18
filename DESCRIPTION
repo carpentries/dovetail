@@ -16,7 +16,8 @@ Imports:
 Suggests: 
     rmarkdown,
     testthat,
-    up2code
+    up2code,
+    withr
 VignetteBuilder: 
     knitr
 Remotes:

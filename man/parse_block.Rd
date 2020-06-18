@@ -10,6 +10,8 @@ parse_block(txt, type = "challenge", opts = "markdown='1'")
 \item{txt}{a character vector of length 1 that represents a block of text}
 
 \item{type}{the type of block any other blocks will be nested in}
+
+\item{opts}{other options to add to the div tags defaults to markdown='1'}
 }
 \value{
 the modified block with div tags assigned in the appropriate places
@@ -34,7 +36,7 @@ h$ello  # variables in the current environment are evaluated
 h$ere
 getwd() # working directory is the current directory
 #' ```
-")
+", type = "challenge", opts = "markdown='1' style='color:red'")
 tmp <- tempfile(fileext = ".md")
 knitr::knit(output = tmp, text = txt, envir = e)
 file.edit(tmp)
