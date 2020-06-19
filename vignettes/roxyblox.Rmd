@@ -48,7 +48,7 @@ currently rely on the Kramdown interpreter with Jekyll:
 
 ````markdown
 ```{ENGINE, eval = FALSE}
-#' @challenge Challenge 2
+#' ## Challenge 2
 #' 
 #' Given the following code:
 #' ```{r}
@@ -152,11 +152,12 @@ templates because of a few reasons:
 Of course, it's the two tags at the bottom that are doing *a lot* of the work in
 conjunction with the kramdown parser employed by Jekyll. 
 
-The idea behind this package is to write an engine for knitr that will parse a
-code block that looks like this:
+The idea behind this package is to write an engine for knitr that will parse the
+above code block to look like this:
 
-```{r "245:1-264:14", echo = FALSE, comment = NA}
-txt <- "#' ## Challenge 2
+
+```{challenge "245:1-264:14", echo = FALSE, comment = NA}
+#' ## Challenge 2
 #' 
 #' Given the following code:
 #' ```{r}
@@ -172,17 +173,8 @@ print(x)
 #' ```{r}
 x_subset <- x[x<7 & x>4]
 print(x_subset)
-#' ```"
-cat(txt)
+#' ```
 ```
-
-into something that looks like this: 
-
-```{r result, echo = FALSE, results='asis'}
-eng <- knitr::knitr_engines$get("challenge")
-cat("````markdown\n", eng(list(type = "challenge", code = txt)), "````", sep = "\n")
-```
-
 
 
 
@@ -211,7 +203,7 @@ existing terminology and tokens to make writing these blocks less complex
 
 The Carpentries lessons support the following tags to open div tags within the
 code block:
-``r paste0("`#' @", OUR_TAGS[OUR_TAGS != "end"], "`")``. Unless preceded by 
+`r paste0("#' @", roxyblox:::OUR_TAGS[roxyblox:::OUR_TAGS != "end"])`. Unless preceded by 
 `#' @end`, each successive div tag will be nested within the previous tag. 
 These tags behave by the following rules:
 
