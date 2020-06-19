@@ -30,8 +30,8 @@ test_that("engines have been registered", {
     KNG <- knitr::knit_engines$get(i)
     expect_type(ENG, "closure")
     # The chunk labels are the time with a random number
-    expect_output(res <- ENG(list(type = i, code = txt)), paste("label:", Sys.Date()), fixed = TRUE)
-    expect_output(kes <- KNG(list(type = i, code = txt)), paste("label:", Sys.Date()), fixed = TRUE)
+    expect_output(res <- ENG(list(engine = i, code = txt)), paste("label:", Sys.Date()), fixed = TRUE)
+    expect_output(kes <- KNG(list(engine = i, code = txt)), paste("label:", Sys.Date()), fixed = TRUE)
     expect_identical(res, kes)
     # Output is produced
     expect_match(res, '[1] "hello"', fixed = TRUE)

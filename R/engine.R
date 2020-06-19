@@ -18,7 +18,7 @@ engine_generic_carp <- function(class) {
     }
     knitr::opts_knit$set(unnamed.chunk.label = paste(as.character(Sys.time()), randos()))
 
-    res <- parse_block(paste(options$code, collapse = "\n"), type = options$type)
+    res <- parse_block(paste(options$code, collapse = "\n"), type = options$engine)
     tmp <- tempfile(fileext = ".md")
     on.exit(unlink(tmp), add = TRUE)
     knitr::knit(
