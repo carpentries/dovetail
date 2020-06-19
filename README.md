@@ -9,6 +9,10 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/dovetail)](https://CRAN.R-project.org/package=dovetail)
+[![R build
+status](https://github.com/carpentries/dovetail/workflows/R-CMD-check/badge.svg)](https://github.com/carpentries/dovetail/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/carpentries/dovetail/branch/master/graph/badge.svg)](https://codecov.io/gh/carpentries/dovetail?branch=master)
 <!-- badges: end -->
 
 The goal of {dovetail} is to provide a
