@@ -15,6 +15,11 @@ status](https://github.com/carpentries/dovetail/workflows/R-CMD-check/badge.svg)
 coverage](https://codecov.io/gh/carpentries/dovetail/branch/master/graph/badge.svg)](https://codecov.io/gh/carpentries/dovetail?branch=master)
 <!-- badges: end -->
 
+> A dovetail joint or simply dovetail is a joinery technique most
+> commonly used in woodworking joinery (carpentry) …
+> 
+> Source: <https://en.wikipedia.org/wiki/Dovetail>
+
 The goal of {dovetail} is to provide a
 [{knitr}](https://yihui.org/knitr/) engine that allows users to write
 nested div tags or blockquotes containing executable code as
