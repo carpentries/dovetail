@@ -1,8 +1,8 @@
 ---
-title: "roxyblox"
+title: "dovetail"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{roxyblox}
+  %\VignetteIndexEntry{Introduction to dovetail}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -15,12 +15,12 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(roxyblox)
+library("dovetail")
 ```
 
 # Introduction
 
-The purpose of the roxyblox package is to provide a way for Carpentries lesson
+The purpose of the dovetail package is to provide a way for Carpentries lesson
 contributors to write challenge and solution blocks in a simple and
 straightforward manner. We have taken inspiration from the Roxygen2 style of
 writing documentation above code blocks. For example, here is a function with
@@ -70,7 +70,7 @@ print(x_subset)
 
 ## Naming ideas
 
-This package is currently called `{roxyblox}`, but I think it's a bit clunky.
+This package is currently called `{dovetail}`, but I think it's a bit clunky.
 One of the things we want to consider is the fact that we should be able to run
 any language within the chunks. Moreover, because the roxygen tags would
 indicate the type of block to be generated, we would want the package name to be
@@ -80,7 +80,7 @@ definitely do not have to follow this.
 
 Add more names as you see fit here:
 
- - {roxyblox}
+ - {dovetail}
  - {pegboard} <https://en.wikipedia.org/wiki/Pegboard>
  - {mitre} <https://en.wikipedia.org/wiki/Mitre_joint>
  - {sawhorse} <https://en.wikipedia.org/wiki/Sawhorse>
@@ -203,7 +203,7 @@ existing terminology and tokens to make writing these blocks less complex
 
 The Carpentries lessons support the following tags to open div tags within the
 code block:
-`r paste0("#' @", roxyblox:::OUR_TAGS[roxyblox:::OUR_TAGS != "end"])`. Unless preceded by 
+`r paste0("#' @", dovetail:::OUR_TAGS[dovetail:::OUR_TAGS != "end"])`. Unless preceded by 
 `#' @end`, each successive div tag will be nested within the previous tag. 
 These tags behave by the following rules:
 

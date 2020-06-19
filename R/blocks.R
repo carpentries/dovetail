@@ -1,4 +1,4 @@
-#' @title Roxygen tags for roxyblox
+#' @title Roxygen tags for dovetail
 #' @rdname roxy_tag_parse
 #'
 #' @param x a tag
@@ -7,7 +7,7 @@
 #' @importFrom roxygen2 roxy_tag_parse
 #' @examples
 #' soln <- system.file("inst", "extdata", "example-solution-only.R",
-#'   package = "roxyblox"
+#'   package = "dovetail"
 #' )
 #' roxygen2::parse_file(soln, env = NULL)
 roxy_tag_parse.roxy_tag_end <- function(x) {

@@ -29,7 +29,7 @@
 #' file.edit(tmp)
 #'
 #' # Example of a more typical block
-#' f <- system.file("extdata", "example-number-echo.R", package = "roxyblox")
+#' f <- system.file("extdata", "example-number-echo.R", package = "dovetail")
 #' txt <- paste(readLines(f, encoding = "UTF-8"), collapse = "\n")
 #' cat(txt)
 #' ptxt <- parse_block(txt)
@@ -38,7 +38,7 @@
 #' file.edit(tmp)
 #'
 #' # Example of a block with multiple solutions
-#' f <- system.file("extdata", "example-multi-solution.txt", package = "roxyblox")
+#' f <- system.file("extdata", "example-multi-solution.txt", package = "dovetail")
 #' txt <- paste(readLines(f, encoding = "UTF-8"), collapse = "\n")
 #' cat(txt)
 #' ptxt <- parse_block(txt)

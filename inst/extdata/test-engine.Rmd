@@ -3,7 +3,7 @@ title: Test the different knitr engines
 ---
 
 ```{r setup}
-library(roxyblox)
+library(dovetail)
 library(knitr)
 opts_chunk$set(error = TRUE)
 ```

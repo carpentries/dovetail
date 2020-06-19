@@ -35,6 +35,7 @@ repos:
     -   id: parsable-R
     -   id: no-browser-statement
     -   id: deps-in-desc
+        exclude: 'inst/*'
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.1.0
     hooks: 

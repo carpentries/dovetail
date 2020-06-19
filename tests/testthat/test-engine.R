@@ -52,7 +52,7 @@ test_that("engines work with calls to knitr", {
 
   # We are not in a knitr document
   expect_output(print(knitr::knit_global()), "R_GlobalEnv")
-  f <- system.file('extdata', 'test-engine.Rmd', package = "roxyblox")
+  f <- system.file('extdata', 'test-engine.Rmd', package = "dovetail")
   tmp <- tempfile(fileext = ".md")
   on.exit(file.remove(tmp))
 
@@ -79,7 +79,7 @@ test_that("engines work with calls to rmarkdown", {
 
   # We are not in a knitr document
   expect_output(print(knitr::knit_global()), "R_GlobalEnv")
-  f <- system.file('extdata', 'test-engine.Rmd', package = "roxyblox")
+  f <- system.file('extdata', 'test-engine.Rmd', package = "dovetail")
   tmp <- tempfile(fileext = ".md")
   on.exit(file.remove(tmp))
 

@@ -26,7 +26,7 @@ test_that("parse_block works with simple cases", {
 test_that("parse_block works with the examples we have", {
 
   # code blocks with numbers that echo
-  f <- system.file("extdata", "example-number-echo.R", package = "roxyblox")
+  f <- system.file("extdata", "example-number-echo.R", package = "dovetail")
   txt <- paste(readLines(f, encoding = "UTF-8"), collapse = "\n")
   ptxt <- parse_block(txt)
 
@@ -37,7 +37,7 @@ test_that("parse_block works with the examples we have", {
   expect_match(ptxt, "\n\n</div>\n\n</div>", fixed = TRUE)
 
   # multiple solution blocks
-  f <- system.file("extdata", "example-multi-solution.txt", package = "roxyblox")
+  f <- system.file("extdata", "example-multi-solution.txt", package = "dovetail")
   txt <- paste(readLines(f, encoding = "UTF-8"), collapse = "\n")
   ptxt <- parse_block(txt)
 

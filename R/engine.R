@@ -7,12 +7,12 @@
 ## - https://github.com/yonicd/details/blob/master/R/engine.R
 
 
-## Currently not in use
 engine_generic_carp <- function(class) {
   function(options) {
     # Avoid errors where there are multiple unnamed chunk labels
     unc <- knitr::opts_knit$get("unnamed.chunk.label")
     on.exit(knitr::opts_knit$set(unnamed.chunk.label = unc))
+    # Change unnamed chunk labels to the time and a random 10-char string
     randos <- function() {
       paste(sample(c(letters, 0:9), 10, replace = TRUE), collapse = "")
     }
@@ -34,6 +34,7 @@ engine_generic_carp <- function(class) {
 }
 
 # nocov start
+# Load the engine
 .onLoad <- function(lib, pkg) {
   for (i in OUR_TAGS) {
     ENG <- list(engine_generic_carp(i))

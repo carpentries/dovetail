@@ -1,4 +1,4 @@
 library(testthat)
-library(roxyblox)
+library(dovetail)
 
-test_check("roxyblox")
+test_check("dovetail")

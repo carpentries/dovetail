@@ -17,6 +17,7 @@ extdata
 fileext
 gapminder
 getwd
+github
 Github
 gmail
 htmltools
@@ -53,7 +54,6 @@ Rmd
 roclet
 ROI
 roxy
-roxyblox
 roxygen
 Roxygen
 RoxygenNote

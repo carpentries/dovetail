@@ -11,7 +11,7 @@
 \alias{roxy_tag_parse.roxy_tag_objectives}
 \alias{roxy_tag_parse.roxy_tag_prereq}
 \alias{roxy_tag_parse.roxy_tag_testimonial}
-\title{Roxygen tags for roxyblox}
+\title{Roxygen tags for dovetail}
 \usage{
 \method{roxy_tag_parse}{roxy_tag_end}(x)
 
@@ -46,11 +46,11 @@
 somethng
 }
 \description{
-Roxygen tags for roxyblox
+Roxygen tags for dovetail
 }
 \examples{
 soln <- system.file("inst", "extdata", "example-solution-only.R",
-  package = "roxyblox"
+  package = "dovetail"
 )
 roxygen2::parse_file(soln, env = NULL)
 }

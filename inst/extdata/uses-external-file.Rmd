@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-library("roxyblox")
+library("dovetail")
 knitr::opts_chunk$set(echo = TRUE)
 nlines <- length(readLines('produces-plot.Rmd'))
 ```
