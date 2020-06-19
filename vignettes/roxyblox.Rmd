@@ -48,7 +48,7 @@ currently rely on the Kramdown interpreter with Jekyll:
 
 ````markdown
 ```{ENGINE, eval = FALSE}
-#' @challenge Challenge 2
+#' ## Challenge 2
 #' 
 #' Given the following code:
 #' ```{r}
@@ -152,11 +152,12 @@ templates because of a few reasons:
 Of course, it's the two tags at the bottom that are doing *a lot* of the work in
 conjunction with the kramdown parser employed by Jekyll. 
 
-The idea behind this package is to write an engine for knitr that will parse a
-code block that looks like this:
+The idea behind this package is to write an engine for knitr that will parse the
+above code block to look like this:
 
-```{r "245:1-264:14", echo = FALSE, comment = NA}
-txt <- "#' @challenge Challenge 2
+
+```{challenge "245:1-264:14", echo = FALSE, comment = NA}
+#' ## Challenge 2
 #' 
 #' Given the following code:
 #' ```{r}
@@ -172,19 +173,9 @@ print(x)
 #' ```{r}
 x_subset <- x[x<7 & x>4]
 print(x_subset)
-#' ```"
-cat(txt)
+#' ```
 ```
 
-into something that looks closer to this:
-
-```{r result, echo = FALSE, results='asis'}
-cat("````markdown\n", parse_block(txt), "````", sep = "\n")
-```
-
-
-> Note: we have to add markdown="1" to these tags so that the markdown elements
-> are processed by the kramdown interpreter.
 
 
 # Specifications
@@ -199,41 +190,42 @@ existing terminology and tokens to make writing these blocks less complex
 
 ## Chunk specifications
 
- - Chunk engines will generate markdown blocks with rendered code output
+ - Chunk engines will generate markdown div blocks with rendered code output
  - Roxygen comments (`#' `) indicate markdown prose
  - Code fences will be included in roxygen comments, so ````#' ```{r} ```` 
    indicates the beginning of an R chunk
  - Code within the chunk will not have any extra markup
- - Code will be evaluated in the current environment
+ - Code will be evaluated in the knitr document environment (as defined by  
+   `knitr::knit_global()`)
  
 ## Tag specifications
 
-div classes are indicated within the Roxygen comments with a roxygen tag
-and the name of the div type (e.g. `#' @challenge` is the beginning of a
-challenge block)
+
+The Carpentries lessons support the following tags to open div tags within the
+code block:
+`r paste0("#' @", roxyblox:::OUR_TAGS[roxyblox:::OUR_TAGS != "end"])`. Unless preceded by 
+`#' @end`, each successive div tag will be nested within the previous tag. 
+These tags behave by the following rules:
 
  - Each chunk represents a single div class, which can have any number
    of nested div classes within
- - The first line of each chunk be the div tag (e.g. `#' @callout`)
+ - To close or "pop-out" a div tag, add the `#' @end` tag
+ - All open tags will be closed at the end of the code chunk if they do not have
+   an accompanying `#' @end` tag
  - Any text immediately after the roxygen tag will be converted to a level 2 
    markdown heading. 
- - Nested block quotes can be specified with a new tag (e.g. `#' @solution`)
- - To exit a nested block, add the tag for the parent block (e.g. `#' @challenge`
-   after a solution block)
- - The end of the chunk will generate a `</div>` tag for each unpaired
-   tag
+ - New nested div tags can be specified with a new tag (e.g. `#' @solution`)
  
 
 ## Processing
 
 If we are going via a knitr engine route, then we need to apply our function
-for handling the engine via `knitr::knit_engine$set()`. What happens inside of
+for handling the engine via `knitr::knit_engines$set()`. What happens inside of
 that engine is ultimately up to us.
 
-### Route: {knitr}
+The steps we take are:
 
-0. convert class tags to div tags (function: `parse_block()`)
-1. Transfer text to RMarkdown document (function: `tmp_rmd()`
-2. Render RMarkdown to markdown (function: `knitr::knit()`)
-3. Read in output (maybe via `up2code::Episode$new()`) and modify artifacts
-5. render the output as-is 
+1. Register one engine per tag with `knitr::engines$set()`
+2. chunks are labeled with the block label
+3. the engine parses the value in `options$code` via `parse_block()`
+4. The output is sent to `knitr::knit()` and the output of that is returned.

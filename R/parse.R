@@ -2,6 +2,7 @@
 #'
 #' @param txt a character vector of length 1 that represents a block of text
 #' @param type the type of block any other blocks will be nested in
+#' @param opts other options to add to the div tags defaults to markdown='1'
 #'
 #' @return the modified block with div tags assigned in the appropriate places
 #' @export
@@ -22,7 +23,7 @@
 #' h$ere
 #' getwd() # working directory is the current directory
 #' #' ```
-#' ")
+#' ", type = "challenge", opts = "markdown='1' style='color:red'")
 #' tmp <- tempfile(fileext = ".md")
 #' knitr::knit(output = tmp, text = txt, envir = e)
 #' file.edit(tmp)
@@ -44,7 +45,7 @@
 #' tmp <- tempfile(fileext = ".md")
 #' knitr::knit(output = tmp, text = ptxt, encoding = "UTF-8", envir = parent.frame())
 #' file.edit(tmp)
-parse_block <- function(txt, type = "challenge") {
+parse_block <- function(txt, type = "challenge", opts="markdown='1'") {
   if (length(txt) != 1) {
     stop("there is more than one text block here")
   }
@@ -67,7 +68,7 @@ parse_block <- function(txt, type = "challenge") {
 
   res <-
   res <- character(length(parsed$tags) + 2L)
-  res[[1]] <- paste0("<div class='", type, "'>\n")
+  res[[1]] <- paste0("<div class='", type, "' ", opts, ">\n")
   n <- 1L
   previous <- NULL
   parent <- NULL
@@ -79,7 +80,7 @@ parse_block <- function(txt, type = "challenge") {
       res[[i + 1L]] <- paste0("\n</div>\n", block$raw)
       n <- n - 1L
     } else {
-      res[[i + 1L]] <- paste0("\n<div class='", block$tag, "'>\n\n", format(block))
+      res[[i + 1L]] <- paste0("\n<div class='", block$tag, "' ", opts, ">\n\n", format(block))
       n <- n + 1L
     }
   }

@@ -6,22 +6,22 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
+library("roxyblox")
 knitr::opts_chunk$set(echo = TRUE)
+nlines <- length(readLines('produces-plot.Rmd'))
 ```
-
-## R Markdown
-
 
 ```{callout uses-external}
 #' ## This block uses an external resource
 #' 
 #' Some blocks will need to use an external resource like a file or a script
 #' 
-#' For example, we know that there are `r length(readLines('produces-plot.Rmd'))`
+#' For example, we know that there are `r nlines`
 #' lines in the `produces-plot.Rmd` example file.
 #'
 #' ```{r echo = TRUE}
-message(paste("there are", length(readLines('produces-plot.Rmd')), "lines"))
+nlines <- length(readLines('produces-plot.Rmd'))
+message(paste("there are", nlines, "lines in produces-plot.Rmd"))
 #' ```
 #' 
 #' If this works, it will be a miracle!
