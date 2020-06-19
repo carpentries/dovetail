@@ -20,7 +20,7 @@ jobs:
         config:
           - {os: macOS-latest,   cov: 'false', r: 'devel'}
           - {os: macOS-latest,   cov: 'true',  r: 'release'}
-          - {os: windows-latest, cov: 'false', r: 'release'}
+          # - {os: windows-latest, cov: 'false', r: 'release'}
           - {os: ubuntu-16.04,   cov: 'false', r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
           - {os: ubuntu-16.04,   cov: 'false', r: 'oldrel',  rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
           - {os: ubuntu-16.04,   cov: 'false', r: '3.5',     rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
