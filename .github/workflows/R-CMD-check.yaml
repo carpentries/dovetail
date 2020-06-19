@@ -90,7 +90,7 @@ jobs:
         shell: bash
 
       - name: Cover
-        if: runner.cov == 'true'
+        if: matrix.config.cov == 'true'
         run: covr::codecov()
         shell: Rscript {0}
 
