@@ -25,7 +25,8 @@ given challenge.
 
 To use {dovetail}, add `library("dovetail")` in the setup chunk of your
 Rmarkdown document and set the engine to one of the following options:
-`dovetail:::OUR_TAGS[dovetail:::OUR_TAGS != "end"]`.
+callout, challenge, checklist, discussion, keypoints, objectives,
+prereq, solution, testimonial.
 
 # Installation
 

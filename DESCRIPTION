@@ -1,13 +1,19 @@
 Package: dovetail
-Title: What the Package Does (One Line, Title Case)
+Title: Document Engine to Insert Nested Block Quotes
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "Zhian N.",
-           family = "Kamvar",
-           role = c("aut", "cre"),
-           email = "zkamvar@gmail.com",
-           comment = c(ORCID = "0000-0003-1458-7108"))
-Description: What the package does (one paragraph).
+    c(person(given = "Zhian N.",
+             family = "Kamvar",
+             role = c("aut", "cre"),
+             email = "zkamvar@carpentries.org",
+             comment = c(ORCID = "0000-0003-1458-7108")),
+      person(given = "François",
+             family = "Michonneau",
+             role = "aut",
+             email = "francois@carpentries.org"))
+Description: Provides a 'knitr' engine to translate
+    'roxygen2'-formatted markdown and code blocks into div tags with any
+    level of nesting for construction of Carpentries lesson material.
 License: MIT + file LICENSE
 Imports: 
     glue,
@@ -16,12 +22,9 @@ Imports:
 Suggests: 
     rmarkdown,
     testthat,
-    up2code,
     withr
 VignetteBuilder: 
     knitr
-Remotes:
-    zkamvar/up2code
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

@@ -34,7 +34,7 @@ they have attempted a given challenge.
 # Usage
 
 To use {dovetail}, add `library("dovetail")` in the setup chunk of your Rmarkdown
-document and set the engine to one of the following options: `dovetail:::OUR_TAGS[dovetail:::OUR_TAGS != "end"]`.
+document and set the engine to one of the following options: `r dovetail:::OUR_TAGS[dovetail:::OUR_TAGS != "end"]`.
 
 # Installation
 
