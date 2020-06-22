@@ -21,6 +21,7 @@ engine_generic_carp <- function(class) {
     res <- parse_block(paste(options$code, collapse = "\n"), type = options$engine)
     tmp <- tempfile(fileext = ".md")
     on.exit(unlink(tmp), add = TRUE)
+
     knitr::knit(
       output = tmp,
       text = res,

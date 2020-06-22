@@ -2,12 +2,13 @@
 title: "produces-image.Rmd"
 author: "Zhian N. Kamvar"
 date: "6/11/2020"
-output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library("dovetail")
+source(dvt_opts())
+knitr_fig_path("01-")
 ```
 
 ## R Markdown
@@ -16,8 +17,9 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r cars}
+```{r cars, echo = FALSE}
 summary(cars)
+cat("OUT DIR:", knitr::opts_knit$get("base.dir"))
 ```
 
 ```{callout plots}
@@ -26,6 +28,7 @@ summary(cars)
 #' You can also embed plots, for example:
 #'
 #' ```{r pressure, echo=FALSE}
+cat("OUT DIR:", knitr::opts_knit$get("base.dir"))
 plot(pressure)
 #' ```
 ```

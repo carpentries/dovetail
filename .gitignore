@@ -41,3 +41,7 @@ inst/extdata/*.md
 .Renviron
 .Rproj.user
 inst/doc
+
+# Detritus
+inst/extdata/*html
+inst/fig/*png
