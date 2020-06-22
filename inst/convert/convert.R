@@ -36,4 +36,4 @@ walk(l$episodes, ~.x$body %>% use_dovetail())
 # Transform the blocks to chunks
 walk(l$episodes, ~.x$unblock()$code %>% make_r_chunks())
 # Overwrite the files
-walk(l$episodes, ~.x$write(path = dirname(.x$path), format = "rmd"))
+walk(l$episodes, ~.x$write(path = dirname(.x$path), format = "Rmd"))
