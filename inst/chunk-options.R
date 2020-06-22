@@ -41,7 +41,7 @@ opts_chunk$set(
   fig.width = 8.5,
   fig.height = 8.5,
   fig.retina = 2,
-  fig.process = fig_fix_path
+  fig.process = fix_fig_path
 )
 
 
