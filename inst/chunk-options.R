@@ -6,9 +6,16 @@
 
 library("knitr")
 
-## Setting the output directory to be _episodes
+## Setting the directory where `fig/` will live. This is the top of the lesson
+## repository and will resolve to the absolute path. 
 opts_knit$set(base.dir = normalizePath(".."))
 
+## Function to fix the rendered paths for Jekyll. The reason for this is
+## that Jekyll renders each episode inside its own folder with index.html,
+## but the shared folders are still above those directories. This tells Jekyll
+## to look up before it pulls the figure. 
+##
+## Note that this resolves to the relative path. 
 fix_fig_path <- function(pth) file.path("..", pth)
 
 
