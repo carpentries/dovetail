@@ -21,7 +21,12 @@ engine_generic_carp <- function(class) {
     res <- parse_block(paste(options$code, collapse = "\n"), type = options$engine)
     tmp <- tempfile(fileext = ".md")
     on.exit(unlink(tmp), add = TRUE)
-    message(getwd())
+    bd <- knitr::opts_knit$get("base.dir")
+    if (!is.null(bd)) {
+      wd <- getwd()
+      on.exit(setwd(wd), add = TRUE)
+      setwd(bd)
+    }
 
     knitr::knit(
       output = tmp,

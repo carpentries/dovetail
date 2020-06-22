@@ -7,7 +7,7 @@
 library("knitr")
 
 ## Setting the output directory to be _episodes
-opts_knit$set(base.dir = "..")
+opts_knit$set(base.dir = normalizePath(".."))
 
 fix_fig_path <- function(pth) pth #file.path(knitr::opts_knit$get("base.dir"), pth)
 
