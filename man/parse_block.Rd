@@ -39,7 +39,7 @@ getwd() # working directory is the current directory
 ", type = "challenge", opts = "markdown='1' style='color:red'")
 tmp <- tempfile(fileext = ".md")
 knitr::knit(output = tmp, text = txt, envir = e)
-file.edit(tmp)
+if (interactive()) file.edit(tmp)
 
 # Example of a more typical block
 f <- system.file("extdata", "example-number-echo.R", package = "dovetail")
@@ -48,7 +48,7 @@ cat(txt)
 ptxt <- parse_block(txt)
 tmp <- tempfile(fileext = ".md")
 knitr::knit(output = tmp, text = ptxt, encoding = "UTF-8", envir = parent.frame())
-file.edit(tmp)
+if (interactive()) file.edit(tmp)
 
 # Example of a block with multiple solutions
 f <- system.file("extdata", "example-multi-solution.txt", package = "dovetail")
@@ -57,5 +57,5 @@ cat(txt)
 ptxt <- parse_block(txt)
 tmp <- tempfile(fileext = ".md")
 knitr::knit(output = tmp, text = ptxt, encoding = "UTF-8", envir = parent.frame())
-file.edit(tmp)
+if (interactive()) file.edit(tmp)
 }

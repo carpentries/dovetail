@@ -10,15 +10,15 @@
 #' ok <- knitr::opts_knit$get()
 #' oc <- knitr::opts_chunk$get()
 #' oh <- knitr::knit_hooks$get()
-#' wd <- getwd()
 #'
 #' on.exit({
-#'   setwd(wd)
 #'   knitr::opts_knit$set(ok)
 #'   knitr::opts_chunk$set(oc)
 #'   knitr::knit_hooks$set(oh)
 #' })
-#' setwd(system.file("extdata", package = "dovetail"))
+#' if (requireNamespace("withr", quietly = TRUE)) { withAutoprint({
+#' withr::with_dir(system.file("extdata", package = "dovetail")){
+#' 
 #' source(dvt_opts())
 #' # The default error is just to print
 #' cat(oh$error(c("this is a dramatic...", "", "error")))
@@ -39,6 +39,8 @@
 #' # Use a loaded function to update this:
 #' knitr_fig_path(prefix = "01-")
 #' knitr::opts_chunk$get("fig.path")
+#' 
+#' })}
 dvt_opts <- function() {
   system.file("chunk-options.R", package = "dovetail")
 }
