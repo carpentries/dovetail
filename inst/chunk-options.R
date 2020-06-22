@@ -9,7 +9,7 @@ library("knitr")
 ## Setting the output directory to be _episodes
 opts_knit$set(base.dir = "..")
 
-fix_fig_path <- function(pth) pth #file.path(knitr::opts_knit$get("base.dir"), pth)
+fix_fig_path <- function(pth) file.path("..", pth)
 
 
 ## We set the path for the figures globally below, so if we want to
@@ -40,7 +40,8 @@ opts_chunk$set(
   fig.path = "fig/rmd-",
   fig.width = 8.5,
   fig.height = 8.5,
-  fig.retina = 2
+  fig.retina = 2,
+  fig.process = fig_fix_path
 )
 
 
