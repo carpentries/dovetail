@@ -30,6 +30,7 @@ repos:
           .*\.rds|
           .*\.Rds|
           .*\.sh|
+          .*\.gif|
           .*\.RData
           )$
     -   id: parsable-R
@@ -40,7 +41,7 @@ repos:
     rev: v3.1.0
     hooks: 
     -   id: check-added-large-files
-        args: ['--maxkb=200']
+        args: ['--maxkb=250']
     -   id: end-of-file-fixer
         exclude: '\.Rd'
 -   repo: local

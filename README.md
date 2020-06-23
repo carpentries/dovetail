@@ -56,6 +56,8 @@ gapminder](http://swcarpentry.github.io/r-novice-gapminder/06-data-subsetting/in
 that gives a challenge block with a single solution block nested within
 it.
 
+<img src="man/figures/challenge-solution.gif" width="50%" />
+
 Written without the {dovetail} engine, the lesson contributor previously
 had to write nested block quotes with kramdown tags like so:
 
