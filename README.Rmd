@@ -59,7 +59,7 @@ remotes::install_github("carpentries/dovetail")
 Consider the [following block quote](https://github.com/swcarpentry/r-novice-gapminder/blob/708ab907306ea764d2e279bb6048c6d9913523c3/_episodes_rmd/06-data-subsetting.Rmd#L263-L282) (taken from [episode 6 of R novice gapminder](http://swcarpentry.github.io/r-novice-gapminder/06-data-subsetting/index.html#challenge-2))
 that gives a challenge block with a single solution block nested within it.
 
-<img src="man/figures/challenge-solution.gif" width="50%" />
+<img alt="Screencapture of a challenge block with a solution block nested inside opening and closing with a mouse click" src="man/figures/challenge-solution.gif" width="50%" />
 
 Written without the {dovetail} engine, the lesson contributor previously had
 to write nested block quotes with kramdown tags like so:
