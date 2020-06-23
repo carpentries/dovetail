@@ -1,3 +1,14 @@
+load_ex <- function(...) {
+  # We are not in a knitr document
+  f <- system.file('extdata', ..., package = "dovetail")
+}
+
+make_tmp <- function(...) {
+  tmp <- tempfile(fileext = ".md")
+  withr::defer_parent(file.remove(tmp))
+  tmp
+}
+
 test_that("engines have been registered", {
 
   # We are not in a knitr document
@@ -52,9 +63,8 @@ test_that("engines work with calls to knitr", {
 
   # We are not in a knitr document
   expect_output(print(knitr::knit_global()), "R_GlobalEnv")
-  f <- system.file('extdata', 'test-engine.Rmd', package = "dovetail")
-  tmp <- tempfile(fileext = ".md")
-  on.exit(file.remove(tmp))
+  tmp <- make_tmp()
+  f <- load_ex("test-engine.Rmd")
 
   n_words <- 9
   n_char <- 42
@@ -72,32 +82,73 @@ test_that("engines work with calls to knitr", {
   txt <- paste(readLines(tmp), collapse = "\n")
   expect_match(txt, "Now that we know that there are 6 words and 19 characters", fixed = TRUE)
 
+  p <- load_ex("produces-plot.Rmd")
+  withr::with_dir(system.file("extdata", package = "dovetail"), {
+    ok <- knitr::opts_knit$get()
+    expect_output({
+      knitr::knit(p, output = tmp, envir = new.env(), encoding = "UTF-8")
+    }, 'engine: chr "callout"', fixed = TRUE)
+
+    txt <- readLines(tmp)
+    # The output directories are the same
+    dirs <- grep("OUT DIR:", txt, value = TRUE)
+    expect_length(dirs, 2)
+    expect_identical(dirs[[1]], dirs[[2]])
+    expect_match(dirs[[1]], dirname(getwd()), fixed = TRUE)
+
+    # There are is Jekyll-style formatting
+    expect_true(sum(grepl("~~~", txt, fixed = TRUE)) > 0)
+
+  })
+
 
 })
 
 test_that("engines work with calls to rmarkdown", {
 
+  # Note: RMarkdown behaves a bit differently than knitr in that it's a bit more
+  # opinionated with its output.
+  #
   # We are not in a knitr document
   expect_output(print(knitr::knit_global()), "R_GlobalEnv")
-  f <- system.file('extdata', 'test-engine.Rmd', package = "dovetail")
-  tmp <- tempfile(fileext = ".md")
-  on.exit(file.remove(tmp))
+  tmp <- make_tmp()
+  f <- load_ex("test-engine.Rmd")
 
   n_words <- 9
   n_char <- 42
+  eng <- rmarkdown::md_document(variant = "markdown_mmd")
   expect_output({
-    rmarkdown::render(f, output_file = tmp, envir = new.env(), encoding = "UTF-8")
+    rmarkdown::render(f, output_file = tmp, envir = new.env(), encoding = "UTF-8", output_format = eng)
   }, 'engine: chr "challenge"', fixed = TRUE)
 
   txt <- paste(readLines(tmp), collapse = "\n")
   expect_match(txt, "Now that we know that there are 6 words and 19 characters", fixed = TRUE)
 
   expect_output({
-    rmarkdown::render(f, output_file = tmp, encoding = "UTF-8")
+    rmarkdown::render(f, output_file = tmp, encoding = "UTF-8", output_format = eng)
   }, 'engine: chr "challenge"', fixed = TRUE)
 
   txt <- paste(readLines(tmp), collapse = "\n")
   expect_match(txt, "Now that we know that there are 6 words and 19 characters", fixed = TRUE)
 
+  p <- load_ex("produces-plot.Rmd")
+  tmp <- make_tmp()
+
+  withr::with_dir(system.file("extdata", package = "dovetail"), {
+    ok <- knitr::opts_knit$get()
+    expect_output({
+      rmarkdown::render(p, output_file = tmp, envir = new.env(), encoding = "UTF-8", output_format = eng)
+    }, 'engine: chr "callout"', fixed = TRUE)
+
+    txt <- readLines(tmp)
+    # The output directories are the same
+    dirs <- grep("OUT DIR:", txt, value = TRUE)
+    expect_length(dirs, 2)
+    expect_identical(dirs[[1]], dirs[[2]])
+
+    # There are is Jekyll-style formatting
+    expect_true(sum(grepl("{: .output}", txt, fixed = TRUE)) > 0)
+
+  })
 
 })

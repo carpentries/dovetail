@@ -26,7 +26,7 @@
 #' ", type = "challenge", opts = "markdown='1' style='color:red'")
 #' tmp <- tempfile(fileext = ".md")
 #' knitr::knit(output = tmp, text = txt, envir = e)
-#' file.edit(tmp)
+#' if (interactive()) file.edit(tmp)
 #'
 #' # Example of a more typical block
 #' f <- system.file("extdata", "example-number-echo.R", package = "dovetail")
@@ -35,7 +35,7 @@
 #' ptxt <- parse_block(txt)
 #' tmp <- tempfile(fileext = ".md")
 #' knitr::knit(output = tmp, text = ptxt, encoding = "UTF-8", envir = parent.frame())
-#' file.edit(tmp)
+#' if (interactive()) file.edit(tmp)
 #'
 #' # Example of a block with multiple solutions
 #' f <- system.file("extdata", "example-multi-solution.txt", package = "dovetail")
@@ -44,7 +44,7 @@
 #' ptxt <- parse_block(txt)
 #' tmp <- tempfile(fileext = ".md")
 #' knitr::knit(output = tmp, text = ptxt, encoding = "UTF-8", envir = parent.frame())
-#' file.edit(tmp)
+#' if (interactive()) file.edit(tmp)
 parse_block <- function(txt, type = "challenge", opts="markdown='1'") {
   if (length(txt) != 1) {
     stop("there is more than one text block here")

@@ -19,6 +19,7 @@ dependences
 deps
 dev
 dir
+dvt
 ello
 env
 envir
@@ -38,6 +39,8 @@ hashFiles
 htmltools
 http
 https
+jekerr
+jekyll
 Kamvar
 keypoints
 knitr
@@ -54,6 +57,7 @@ Michonneau
 mitre
 Mitre
 NONINFRINGEMENT
+oc
 oducible
 oldrel
 olleH
@@ -89,6 +93,7 @@ rstudio
 RStudio
 saveRDS
 sessioninfo
+setwd
 sexualized
 socio
 soln
@@ -108,6 +113,7 @@ tidyverse
 tmp
 ubuntu
 VignetteBuilder
+wd
 wikipedia
 withr
 writeLines
