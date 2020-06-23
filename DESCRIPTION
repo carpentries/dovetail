@@ -21,11 +21,14 @@ Imports:
     roxygen2
 Suggests: 
     covr,
+    pegboard,
     rmarkdown,
     testthat,
     withr
 VignetteBuilder: 
     knitr
+Remotes:
+    carpentries/pegboard
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
