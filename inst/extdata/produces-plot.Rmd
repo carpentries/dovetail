@@ -7,7 +7,7 @@ date: "6/11/2020"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library("dovetail")
-source(dvt_opts())
+source(dvt_opts(), local = TRUE)
 knitr_fig_path("01-")
 ```
 
