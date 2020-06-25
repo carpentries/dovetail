@@ -18,7 +18,6 @@ test_that("python engines work with absolute dirs", {
 
 test_that("python engines work with relative dirs", {
   skip_if_not_installed("reticulate")
-  skip("There's something fishy about py not being found")
   py1 <- provision_jekyll("example-python.Rmd", "data")
   expect_output(pyf <- knit_jekyll(py1), 'engine: chr "challenge"', fixed = TRUE)
   expect_true(file.exists(pyf))

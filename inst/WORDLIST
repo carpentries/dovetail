@@ -75,6 +75,7 @@ readLines
 repo
 repr
 reprex
+requireNamespace
 reticulate
 RHUB
 rmarkdown
@@ -115,6 +116,7 @@ ubuntu
 VignetteBuilder
 wd
 wikipedia
+withAutoprint
 withr
 writeLines
 www

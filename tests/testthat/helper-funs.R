@@ -16,6 +16,15 @@ make_tmp <- function(...) {
 # the rmd file and any other files/directories needed in the _episodes_rmd
 # folder
 provision_jekyll <- function(rmd, ...) {
+  if (grepl("^/tmp", rmd)) {
+    DIR <- dirname(rmd)
+    example_file <- function(x) file.path(DIR, x)
+    rmd <- basename(rmd)
+    dots <- c(...)
+    dots <- if (length(dots)) basename(dots) else dots
+  } else {
+    dots <- c(...)
+  }
   # Create a temporary directory
   tmpdir <- tempfile(pattern = "DIR")
   dir.create(tmpdir)
@@ -27,7 +36,7 @@ provision_jekyll <- function(rmd, ...) {
   f <- file.create(file.path(tmpdir, "_episodes", sub("\\.R", ".", rmd)))
 
   # Link all of the input files
-  for (f in c(rmd, ...)) {
+  for (f in c(rmd, dots)) {
     file.symlink(example_file(f), file.path(tmpdir, "_episodes_rmd", f))
   }
   tmpdir
@@ -37,7 +46,7 @@ provision_jekyll <- function(rmd, ...) {
 #
 # Note that this assumes only one markdown file per directory
 knit_jekyll <- function(path, env = new.env()) {
-  a_file_in <- function(d) print(file.path(d, list.files(d, pattern = "*md")))
+  a_file_in <- function(d) file.path(d, list.files(d, pattern = "*md"))
   withr::with_dir(path, {
     out <- knitr::knit(
       input = a_file_in("_episodes_rmd"),
