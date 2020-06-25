@@ -1,0 +1,61 @@
+---
+title: "python test"
+author: "Zhian N. Kamvar"
+date: "6/24/2020"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dovetail)
+library(reticulate)
+source(dvt_opts(), local = TRUE)
+```
+
+## R Markdown
+
+```{python cars}
+import pandas as pd
+slp = pd.read_csv('data/sleep.csv')
+slp
+```
+
+```{callout}
+#' ## DID YOU KNOW
+#' 
+#' Tip number `r format(sample(1e5, 1), big.mark = ",")`: Sleep is required for 
+#' a well-functioning body!
+```
+
+Here's a challenge!
+
+```{challenge}
+#' ## Find good and bad sleep!
+#'
+#' Use logical indexing to find good and bad sleep patterns.
+#'
+#' Our current R environment looks like this:
+#'
+#' ```{python}
+print("our files:")
+dir()
+#' ```
+#'
+#' We want to find these good and bad sleep patterns
+#' ```{python chalng1, echo = FALSE}
+good = slp[slp['extra'] > 0]
+bad  = slp[slp['extra'] <= 0]
+print("good patterns")
+good
+print("bad patterns")
+bad
+#' ```
+#'
+#' @solution The Solution!
+#' 
+#' Note that it uses a reference
+#'
+#' ```{python soln, ref.label = "chalng1"}
+#' ```
+```
+There were `r nrow(py$good)` cases of good sleep and `r nrow(py$bad)` cases of 
+bad  sleep.
