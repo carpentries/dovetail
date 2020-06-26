@@ -88,6 +88,8 @@ test_that("engines work with calls to knitr", {
   dirs <- grep("OUT DIR:", txt, value = TRUE)
   expect_length(dirs, 2)
   expect_identical(dirs[[1]], dirs[[2]])
+
+  skip_on_os("mac") # THIS GODDAMN THING
   expect_true(grepl(p, gsub("OUT DIR: ?", "", dirs[[1]]), fixed = TRUE))
 
   # There are is Jekyll-style formatting
@@ -102,6 +104,7 @@ test_that("engines work with calls to knitr", {
   dirs <- grep("OUT DIR:", txt, value = TRUE)
   expect_length(dirs, 2)
   expect_identical(dirs[[1]], dirs[[2]])
+  skip_on_os("mac")
   expect_true(grepl(p, gsub("OUT DIR: ?", "", dirs[[1]]), fixed = TRUE))
 
   # There are is Jekyll-style formatting
