@@ -4,6 +4,14 @@ test_that("engines have been registered", {
   # We are not in a knitr document
   expect_output(print(knitr::knit_global()), "R_GlobalEnv")
   UNC <- knitr::opts_knit$get("unnamed.chunk.label")
+  d <- tempfile(pattern = "DIR")
+  # We have a a provision that if "base.dir" is set, then the chunk has to move
+  # there in order to complete its journey. This is how we deal with relative
+  # paths in the input to knitr. Note that this may not work with reading in
+  # files and I have to test the different strategies for handling this.
+  dir.create(d)
+  withr::defer(dir.remove(d))
+  dir.create(file.path(d, "fiddle", "bow"), recursive = TRUE)
   l <- list.files(tempdir())
 
   # Testing that the function works without assigning something to to global
@@ -21,30 +29,51 @@ test_that("engines have been registered", {
 #' @solution olleH Solution
 #'
 #' ```{r}
+#' list.files() 
 #' h$ello
 #' h$ere
 #' ```
 "
 
-  for (i in OUR_TAGS) {
-    ENG <- engine_generic_carp(i)
-    KNG <- knitr::knit_engines$get(i)
-    expect_type(ENG, "closure")
-    # The chunk labels are the time with a random number
-    expect_output(res <- ENG(list(engine = i, code = txt)), paste("label:", Sys.Date()), fixed = TRUE)
-    expect_output(kes <- KNG(list(engine = i, code = txt)), paste("label:", Sys.Date()), fixed = TRUE)
-    expect_identical(res, kes)
-    # Output is produced
-    expect_match(res, '[1] "hello"', fixed = TRUE)
-    expect_match(res, '[1] "there"', fixed = TRUE)
-    # Div tags are applied
-    div_expected <- paste0("<div class='", i, "' markdown='1'>")
-    expect_match(res, div_expected, fixed = TRUE)
-    # No files are leftover
-    expect_identical(l, list.files(tempdir()))
-    # Unnamed chunk label stays the same
-    expect_identical(knitr::opts_knit$get("unnamed.chunk.label"), UNC)
-  }
+  withr::with_dir(file.path(d, "fiddle", "bow"), {
+    bd <- knitr::opts_knit$get("base.dir")
+    withr::defer(knitr::opts_knit$set(base.dir = bd))
+    knitr::opts_knit$set(base.dir = normalizePath("../.."))
+
+    for (i in OUR_TAGS) {
+      ENG <- engine_generic_carp(i)
+      KNG <- knitr::knit_engines$get(i)
+      expect_type(ENG, "closure")
+      # The chunk labels are the time with a random number
+      expect_output(
+        {
+          res <- ENG(list(engine = i, code = txt))
+        },
+        paste("label:", Sys.Date()),
+        fixed = TRUE
+      )
+      expect_output(
+        {
+          kes <- KNG(list(engine = i, code = txt))
+        },
+        paste("label:", Sys.Date()),
+        fixed = TRUE
+      )
+
+      expect_identical(res, kes)
+      # Output is produced
+      expect_match(res, '[1] "fiddle"', fixed = TRUE)
+      expect_match(res, '[1] "hello"', fixed = TRUE)
+      expect_match(res, '[1] "there"', fixed = TRUE)
+      # Div tags are applied
+      div_expected <- paste0("<div class='", i, "' markdown='1'>")
+      expect_match(res, div_expected, fixed = TRUE)
+      # No files are leftover
+      expect_identical(l, list.files(tempdir()))
+      # Unnamed chunk label stays the same
+      expect_identical(knitr::opts_knit$get("unnamed.chunk.label"), UNC)
+    }
+  })
 })
 
 
