@@ -45,15 +45,32 @@ provision_jekyll <- function(rmd, ...) {
 # Take a jekyll-like directory and knit it to the output
 #
 # Note that this assumes only one markdown file per directory
-knit_jekyll <- function(path, env = new.env()) {
+knit_jekyll <- function(path, env = new.env(), eng = NULL) {
   a_file_in <- function(d) file.path(d, list.files(d, pattern = "*md"))
-  withr::with_dir(path, {
-    out <- knitr::knit(
-      input = a_file_in("_episodes_rmd"),
-      output = a_file_in("_episodes"),
-      encoding = "UTF-8",
-      envir = env
-    )
-  })
-  file.path(path, out)
+  if (is.null(eng)) {
+    # knitr has an input and output and returns the relative path
+    withr::with_dir(path, {
+      out <- knitr::knit(
+        input = a_file_in("_episodes_rmd"),
+        output = a_file_in("_episodes"),
+        encoding = "UTF-8",
+        envir = env
+      )
+    })
+    file.path(path, out)
+  } else {
+    # RMarkdown requires a much different syntax and outputs the full path
+    withr::with_dir(path, {
+      print(dir())
+      fin <- a_file_in("_episodes_rmd")
+      out <- rmarkdown::render(
+        input = fin,
+        output_dir = "_episodes",
+        output_format = eng,
+        encoding = "UTF-8",
+        envir = env
+      )
+    })
+    out
+  }
 }
