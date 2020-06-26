@@ -21,6 +21,14 @@ engine_generic_carp <- function(class) {
     res <- parse_block(paste(options$code, collapse = "\n"), type = options$engine)
     tmp <- tempfile(fileext = ".md")
     on.exit(unlink(tmp), add = TRUE)
+
+    # This part happens because I noticed that even if I set a base.dir option
+    # to be one path above this, knitr would for some reason place the figures
+    # in the wd of the original document or worse, try to access the output
+    # directory from inside the original directory.
+    #
+    # I know this works, but I have to come up with other cases where it might
+    # not.
     bd <- knitr::opts_knit$get("base.dir")
     if (!is.null(bd)) {
       wd <- getwd()
