@@ -42,12 +42,31 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@master
 
+      - name: SETUP PYTHON
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.6
+
       - name: Query dependencies
         run: |
           install.packages('remotes')
           saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
           writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
         shell: Rscript {0}
+
+      - name: RETICULATE_PYTHON SETTING
+        run: |
+          reticulate_dir <- path.expand("~/.Renviron")
+          fileConn <- file(reticulate_dir)
+          pyPATH <- Sys.getenv("pythonLocation")
+          writeLines(sprintf('RETICULATE_PYTHON="%s"', pyPATH), fileConn)
+          close(fileConn)
+        shell: Rscript {0}
+
+      - name: INSTALL PYTHON DEPENDENCIES
+        run: |
+          pip install --upgrade pip
+          pip install setuptools pandas
 
       - name: Cache R packages
         if: runner.os != 'Windows'

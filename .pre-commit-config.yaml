@@ -25,6 +25,7 @@ repos:
           (.*/|)appveyor.yml|
           (.*/|)\.Rbuildignore|
           (.*/|)\.pre-commit-.*|
+          (.*/|)R-CMD-check.*|
           .*\.[rR]|
           .*\.Rproj|
           .*\.py|
