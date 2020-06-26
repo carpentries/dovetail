@@ -87,7 +87,7 @@ test_that("engines work with calls to knitr", {
   dirs <- grep("OUT DIR:", txt, value = TRUE)
   expect_length(dirs, 2)
   expect_identical(dirs[[1]], dirs[[2]])
-  expect_match(dirs[[1]], p, fixed = TRUE)
+  expect_true(grepl(gsub("OUT DIR: ?", "", dirs[[1]]), p, fixed = TRUE))
 
   # There are is Jekyll-style formatting
   expect_true(sum(grepl("~~~", txt, fixed = TRUE)) > 0)
