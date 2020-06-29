@@ -45,7 +45,7 @@ provision_jekyll <- function(rmd, ...) {
   for (f in c(rmd, dots)) {
     file.symlink(example_file(f), file.path(tmpdir, "_episodes_rmd", f))
   }
-  tmpdir
+  normalizePath(tmpdir)
 }
 
 # Take a jekyll-like directory and knit it to the output
@@ -63,7 +63,7 @@ knit_jekyll <- function(path, env = new.env(), eng = NULL) {
         envir = env
       )
     })
-    file.path(path, out)
+    normalizePath(file.path(path, out))
   } else {
     # RMarkdown requires a much different syntax and outputs the full path
     withr::with_dir(path, {
@@ -77,7 +77,7 @@ knit_jekyll <- function(path, env = new.env(), eng = NULL) {
         envir = env
       )
     })
-    out
+    normalizePath(out)
   }
 }
 

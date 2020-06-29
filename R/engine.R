@@ -12,11 +12,12 @@ engine_generic_carp <- function(class) {
     # Avoid errors where there are multiple unnamed chunk labels
     unc <- knitr::opts_knit$get("unnamed.chunk.label")
     on.exit(knitr::opts_knit$set(unnamed.chunk.label = unc))
-    # Change unnamed chunk labels to the time and a random 10-char string
-    randos <- function() {
-      paste(sample(c(letters, 0:9), 10, replace = TRUE), collapse = "")
-    }
-    knitr::opts_knit$set(unnamed.chunk.label = paste(as.character(Sys.time()), randos()))
+    # # Change unnamed chunk labels to the time and a random 10-char string
+    knitr::opts_knit$set(unnamed.chunk.label = dove_chunk_label())
+    # randos <- function() {
+    #   paste(sample(c(letters, 0:9), 10, replace = TRUE), collapse = "")
+    # }
+    # knitr::opts_knit$set(unnamed.chunk.label = paste(as.character(Sys.time()), randos()))
 
     res <- parse_block(paste(options$code, collapse = "\n"), type = options$engine)
     tmp <- tempfile(fileext = ".md")

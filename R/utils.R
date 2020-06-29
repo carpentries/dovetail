@@ -24,6 +24,18 @@ tag_section <- function(x) {
 
 
 rxyfmt <- function(x) {
-  head <- if (x$val['head'] == '') '' else paste0("## ", x$val['head'], "\n")
-  paste(head, x$val['body'])
+  head <- if (x$val["head"] == "") "" else paste0("## ", x$val["head"], "\n")
+  paste(head, x$val["body"])
 }
+
+# Internal counter function
+cp_counter <- function(N = 0, prefix = "dovetail-chunk-") {
+  n <- N
+  prefix <- prefix
+  function(reset = FALSE) {
+    n <<- if (reset) N else n + 1L
+    return(paste0(prefix, n))
+  }
+}
+
+dove_chunk_label <- cp_counter()

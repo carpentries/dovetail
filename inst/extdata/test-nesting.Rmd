@@ -30,7 +30,6 @@ n_words
 #' ```
 #'
 #' @end
-#' 
 #' @end
 #' 
 #' 1. How many letters are in the sentence `x`?

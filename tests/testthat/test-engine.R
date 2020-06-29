@@ -45,18 +45,20 @@ test_that("engines have been registered", {
       KNG <- knitr::knit_engines$get(i)
       expect_type(ENG, "closure")
       # The chunk labels are the time with a random number
+      expect_equal(dove_chunk_label(TRUE), "dovetail-chunk-0")
       expect_output(
         {
           res <- ENG(list(engine = i, code = txt))
         },
-        paste("label:", Sys.Date()),
+        paste("label:", "dovetail-chunk-1"),
         fixed = TRUE
       )
+      expect_equal(dove_chunk_label(TRUE), "dovetail-chunk-0")
       expect_output(
         {
           kes <- KNG(list(engine = i, code = txt))
         },
-        paste("label:", Sys.Date()),
+        paste("label:", "dovetail-chunk-1"),
         fixed = TRUE
       )
 
@@ -118,7 +120,6 @@ test_that("engines work with calls to knitr", {
   expect_length(dirs, 2)
   expect_identical(dirs[[1]], dirs[[2]])
 
-  skip_on_os("mac") # THIS GODDAMN THING
   expect_true(grepl(p, gsub("OUT DIR: ?", "", dirs[[1]]), fixed = TRUE))
 
   # There are is Jekyll-style formatting
@@ -133,7 +134,6 @@ test_that("engines work with calls to knitr", {
   dirs <- grep("OUT DIR:", txt, value = TRUE)
   expect_length(dirs, 2)
   expect_identical(dirs[[1]], dirs[[2]])
-  skip_on_os("mac")
   expect_true(grepl(p, gsub("OUT DIR: ?", "", dirs[[1]]), fixed = TRUE))
 
   # There are is Jekyll-style formatting
