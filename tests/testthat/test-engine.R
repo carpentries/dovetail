@@ -18,7 +18,6 @@ test_that("engines have been registered", {
   # namespace.
   kenv <- getFromNamespace(".knitEnv", asNamespace("knitr"))
   e <- new.env()
-  assign("h", list(ello = "hello", ere = "there"), envir = e)
   assign("knit_global", e, kenv)
   withr::defer((rm("knit_global", envir = kenv)))
 
@@ -41,11 +40,15 @@ test_that("engines have been registered", {
     knitr::opts_knit$set(base.dir = normalizePath("../.."))
 
     for (i in OUR_TAGS) {
+      # Assign a new environment in knitr to reset the counter
+      e <- new.env()
+      assign("h", list(ello = "hello", ere = "there"), envir = e)
+      assign("knit_global", e, kenv)
+
       ENG <- engine_generic_carp(i)
       KNG <- knitr::knit_engines$get(i)
       expect_type(ENG, "closure")
       # The chunk labels are the time with a random number
-      expect_equal(dove_chunk_label(TRUE), "dovetail-chunk-0")
       expect_output(
         {
           res <- ENG(list(engine = i, code = txt))
@@ -53,7 +56,10 @@ test_that("engines have been registered", {
         paste("label:", "dovetail-chunk-1"),
         fixed = TRUE
       )
-      expect_equal(dove_chunk_label(TRUE), "dovetail-chunk-0")
+      # Assign a new environment in knitr to reset the counter
+      e <- new.env()
+      assign("h", list(ello = "hello", ere = "there"), envir = e)
+      assign("knit_global", e, kenv)
       expect_output(
         {
           kes <- KNG(list(engine = i, code = txt))
