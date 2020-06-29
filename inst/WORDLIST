@@ -78,6 +78,7 @@ reprex
 requireNamespace
 reticulate
 RHUB
+rlang
 rmarkdown
 RMarkdown
 Rmd

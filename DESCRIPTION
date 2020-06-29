@@ -23,6 +23,7 @@ Suggests:
     covr,
     pegboard,
     reticulate,
+    rlang,
     rmarkdown,
     testthat,
     withr

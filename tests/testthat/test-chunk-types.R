@@ -10,15 +10,7 @@ test_that("engines work with absolute dirs", {
   )
 
   txt <- paste(readLines(tmp), collapse = "\n")
-  # All the tags exist
-  for (tag in OUR_TAGS[OUR_TAGS != "end"]) {
-    expect_match(txt, paste0("div class='", tag, "'"))
-  }
-  n <- (2 * length(OUR_TAGS)) + 1
-  #  (2*9) for each non-end tag
-  # + 2 for first and last chunk
-  # + 1 fencepost
-  expect_length(strsplit(txt, "\\{: .language-r\\}")[[1]], n)
+  expect_tags_match(txt, OUR_TAGS[OUR_TAGS != "end"])
 })
 
 
@@ -34,15 +26,7 @@ test_that("engines work with absolute dirs and parent env", {
   )
 
   txt <- paste(readLines(tmp), collapse = "\n")
-  # All the tags exist
-  for (tag in OUR_TAGS[OUR_TAGS != "end"]) {
-    expect_match(txt, paste0("div class='", tag, "'"))
-  }
-  n <- (2 * length(OUR_TAGS)) + 1
-  #  (2*9) for each non-end tag
-  # + 2 for first and last chunk
-  # + 1 fencepost
-  expect_length(strsplit(txt, "\\{: .language-r\\}")[[1]], n)
+  expect_tags_match(txt, OUR_TAGS[OUR_TAGS != "end"])
 })
 
 
@@ -54,15 +38,7 @@ test_that("engines work with relative dirs", {
 
   expect_true(file.exists(tct))
   txt <- paste(readLines(tct), collapse = "\n")
-  # All the tags exist
-  for (tag in OUR_TAGS[OUR_TAGS != "end"]) {
-    expect_match(txt, paste0("div class='", tag, "'"))
-  }
-  n <- (2 * length(OUR_TAGS)) + 1
-  #  (2*9) for each non-end tag
-  # + 2 for first and last chunk
-  # + 1 fencepost
-  expect_length(strsplit(txt, "\\{: .language-r\\}")[[1]], n)
+  expect_tags_match(txt, OUR_TAGS[OUR_TAGS != "end"])
 })
 
 test_that("engines work with relative dirs and parent env", {
@@ -73,15 +49,7 @@ test_that("engines work with relative dirs and parent env", {
 
   expect_true(file.exists(tct))
   txt <- paste(readLines(tct), collapse = "\n")
-  # All the tags exist
-  for (tag in OUR_TAGS[OUR_TAGS != "end"]) {
-    expect_match(txt, paste0("div class='", tag, "'"))
-  }
-  n <- (2 * length(OUR_TAGS)) + 1
-  #  (2*9) for each non-end tag
-  # + 2 for first and last chunk
-  # + 1 fencepost
-  expect_length(strsplit(txt, "\\{: .language-r\\}")[[1]], n)
+  expect_tags_match(txt, OUR_TAGS[OUR_TAGS != "end"])
 })
 
 
@@ -95,14 +63,7 @@ test_that("engines work with relative dirs and rmarkdown", {
   expect_true(file.exists(tct))
   txt <- paste(readLines(tct), collapse = "\n")
   # All the tags exist
-  for (tag in OUR_TAGS[OUR_TAGS != "end"]) {
-    expect_match(txt, paste0("div class=['\"]", tag, "['\"]"))
-  }
-  n <- (2 * length(OUR_TAGS)) + 1
-  #  (2*9) for each non-end tag
-  # + 2 for first and last chunk
-  # + 1 fencepost
-  expect_length(strsplit(txt, "\\{: .language-r\\}")[[1]], n)
+  expect_tags_match(txt, OUR_TAGS[OUR_TAGS != "end"])
 })
 
 
@@ -115,13 +76,9 @@ test_that("engines work with relative dirs and rmarkdown and parent env", {
 
   expect_true(file.exists(tct))
   txt <- paste(readLines(tct), collapse = "\n")
-  # All the tags exist
-  for (tag in OUR_TAGS[OUR_TAGS != "end"]) {
-    expect_match(txt, paste0("div class=['\"]", tag, "['\"]"))
-  }
-  n <- (2 * length(OUR_TAGS)) + 1
-  #  (2*9) for each non-end tag
-  # + 2 for first and last chunk
-  # + 1 fencepost
-  expect_length(strsplit(txt, "\\{: .language-r\\}")[[1]], n)
+  expect_tags_match(txt, OUR_TAGS[OUR_TAGS != "end"])
 })
+
+
+# Reset knitr environment
+KRESET()

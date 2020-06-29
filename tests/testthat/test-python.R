@@ -88,3 +88,6 @@ test_that("python engines work with relative dirs and rmarkdown and parent env",
   expect_match(txt, "There were 14 cases of good sleep", fixed = TRUE)
   expect_match(txt, "{: .language-python}", fixed = TRUE)
 })
+
+# Reset knitr environment
+KRESET()

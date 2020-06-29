@@ -29,7 +29,7 @@ test_that("engines have been registered", {
 #' @solution olleH Solution
 #'
 #' ```{r}
-#' list.files() 
+#' list.files()
 #' h$ello
 #' h$ere
 #' ```
@@ -201,3 +201,6 @@ test_that("engines work with calls to rmarkdown", {
   # There are is Jekyll-style formatting
   expect_true(sum(grepl("{: .output}", txt, fixed = TRUE)) > 0)
 })
+
+# Reset knitr environment
+KRESET()

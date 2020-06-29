@@ -1,5 +1,4 @@
 test_that("knitr options are changed", {
-
   ok <- knitr::opts_knit$get()
   oc <- knitr::opts_chunk$get()
   oh <- knitr::knit_hooks$get()
@@ -22,7 +21,6 @@ test_that("knitr options are changed", {
   # The output directory has been updated to the top of the project. This is
   # To account for the fact that Jekyll sites store their assets in the top
   # level directory
-  expect_null(ok$output.dir)
   expect_identical(knitr::opts_knit$get("base.dir"), system.file(package = "dovetail"))
   # The figure paths have been updated
   expect_identical(oc$fig.path, "figure/")
@@ -30,5 +28,4 @@ test_that("knitr options are changed", {
   # Use a loaded function to update this:
   knitr_fig_path(prefix = "01-")
   expect_identical(knitr::opts_chunk$get("fig.path"), "fig/rmd-01-")
-
 })

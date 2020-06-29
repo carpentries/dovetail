@@ -1,3 +1,9 @@
+# Reset the knitr environment
+KRESET <- function() {
+  knitr::opts_knit$set(knitr::opts_knit$get(default = TRUE))
+  knitr::opts_chunk$set(knitr::opts_chunk$get(default = TRUE))
+  knitr::knit_hooks$set(knitr::knit_hooks$get(default = TRUE))
+}
 
 # Load an example file
 example_file <- function(...) {
@@ -76,3 +82,28 @@ knit_jekyll <- function(path, env = new.env(), eng = NULL) {
 }
 
 all_chunk_regex <- paste0("engine[:] chr \"", OUR_TAGS[OUR_TAGS != "end"], "\"", collapse = ".+?")
+
+expect_tags_match <- function(object, TAGS) {
+  # 1. Capture object and label
+  act <- quasi_label(rlang::enquo(object), arg = "object")
+
+  # 2. Call expect()
+  dtags <- paste0("div class=['\"]", TAGS, "['\"]")
+  act$matched <- vapply(dtags, grepl, logical(1), act$val)
+  expect(
+    all(act$matched),
+    sprintf("The following tags are missing from %s: %s", act$lab, paste(TAGS[!act$matched], collapse = ", "))
+  )
+  n <- (2 * length(TAGS)) + 2 + 1
+  #  (2*length) for each non-end tag
+  # + 2 for first and last chunk
+  # + 1 fencepost
+  act$n <- length(strsplit(act$val, "\\{: .language-")[[1]])
+  expect(
+    act$n == n,
+    sprintf("%s has length %i, not length %i.", act$lab, act$n, n)
+  )
+
+  # 3. Invisibly return the value
+  invisible(act$val)
+}
