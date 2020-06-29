@@ -14,7 +14,7 @@ example_file <- function(...) {
 # Make temp file and clean up afterwards
 make_tmp <- function(...) {
   tmp <- tempfile(fileext = ".md")
-  withr::defer_parent(file.remove(tmp))
+  withr::defer_parent(fs::file_delete(tmp))
   tmp
 }
 
@@ -23,27 +23,33 @@ make_tmp <- function(...) {
 # folder
 provision_jekyll <- function(rmd, ...) {
   if (grepl("^/tmp", rmd)) {
-    DIR <- dirname(rmd)
-    example_file <- function(x) file.path(DIR, x)
-    rmd <- basename(rmd)
+    DIR <- fs::path_dir(rmd)
+    example_file <- function(x) fs::path(DIR, x)
+    rmd <- fs::path_file(rmd)
     dots <- c(...)
-    dots <- if (length(dots)) basename(dots) else dots
+    dots <- if (length(dots)) fs::path_dir(dots) else dots
   } else {
     dots <- c(...)
   }
   # Create a temporary directory
-  tmpdir <- tempfile(pattern = "DIR")
-  dir.create(tmpdir)
-  withr::defer_parent(dir.remove(tmpdir))
+  tmpdir <- fs::file_temp(pattern = "DIR")
+  fs::dir_create(tmpdir)
+  withr::defer_parent(fs::dir_delete(tmpdir))
 
   # Add the jekyll structure
-  dir.create(file.path(tmpdir, "_episodes"))
-  dir.create(file.path(tmpdir, "_episodes_rmd"))
-  f <- file.create(file.path(tmpdir, "_episodes", sub("\\.R", ".", rmd)))
+  fs::dir_create(fs::path(tmpdir, "_episodes"))
+  fs::dir_create(fs::path(tmpdir, "_episodes_rmd"))
+  f <- fs::file_create(fs::path(tmpdir, "_episodes", sub("\\.R", ".", rmd)))
 
   # Link all of the input files
   for (f in c(rmd, dots)) {
-    file.symlink(example_file(f), file.path(tmpdir, "_episodes_rmd", f))
+    to <- fs::path(tmpdir, "_episodes_rmd", f)
+    from <- example_file(f)
+    if (fs::is_file(from)) {
+      fs::file_copy(from, to)
+    } else {
+      fs::dir_copy(from, to)
+    }
   }
   normalizePath(tmpdir)
 }
@@ -52,7 +58,7 @@ provision_jekyll <- function(rmd, ...) {
 #
 # Note that this assumes only one markdown file per directory
 knit_jekyll <- function(path, env = new.env(), eng = NULL) {
-  a_file_in <- function(d) file.path(d, list.files(d, pattern = "*md"))
+  a_file_in <- function(d) fs::dir_ls(d, glob = "*md")
   if (is.null(eng)) {
     # knitr has an input and output and returns the relative path
     withr::with_dir(path, {
@@ -63,7 +69,7 @@ knit_jekyll <- function(path, env = new.env(), eng = NULL) {
         envir = env
       )
     })
-    normalizePath(file.path(path, out))
+    normalizePath(fs::path(path, out))
   } else {
     # RMarkdown requires a much different syntax and outputs the full path
     withr::with_dir(path, {
