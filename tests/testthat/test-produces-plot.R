@@ -12,6 +12,7 @@ test_that("engines work with calls to knitr", {
   expect_length(dirs, 2)
   expect_identical(dirs[[1]], dirs[[2]])
   expect_identical(p, gsub("OUT DIR: ?", "", dirs[[1]]))
+  expect_true(fs::file_exists(fs::path(p, "fig", "rmd-01-dovetail-chunk-1-3-1.png")))
 
   # There are is Jekyll-style formatting
   expect_true(sum(grepl("~~~", txt, fixed = TRUE)) > 0)
@@ -26,6 +27,7 @@ test_that("engines work with calls to knitr", {
   expect_length(dirs, 2)
   expect_identical(dirs[[1]], dirs[[2]])
   expect_identical(p, gsub("OUT DIR: ?", "", dirs[[1]]))
+  expect_true(fs::file_exists(fs::path(p, "fig", "rmd-01-dovetail-chunk-1-3-1.png")))
 
   # There are is Jekyll-style formatting
   expect_true(sum(grepl("~~~", txt, fixed = TRUE)) > 0)
@@ -44,6 +46,7 @@ test_that("plotting works with RMarkdown", {
   expect_length(dirs, 2)
   expect_identical(dirs[[1]], dirs[[2]])
   expect_identical(p, gsub(" *OUT DIR: ?", "", dirs[[1]]))
+  expect_true(fs::file_exists(fs::path(p, "fig", "rmd-01-dovetail-chunk-1-3-1.png")))
 
   # There are is Jekyll-style formatting
   expect_true(sum(grepl("{: .output}", txt, fixed = TRUE)) > 0)
@@ -58,6 +61,8 @@ test_that("plotting works with RMarkdown", {
   expect_length(dirs, 2)
   expect_identical(dirs[[1]], dirs[[2]])
   expect_identical(p, gsub(" *OUT DIR: ?", "", dirs[[1]]))
+  expect_true(fs::file_exists(fs::path(p, "fig", "rmd-01-dovetail-chunk-1-3-1.png")))
+
 
   # There are is Jekyll-style formatting
   expect_true(sum(grepl("{: .output}", txt, fixed = TRUE)) > 0)
