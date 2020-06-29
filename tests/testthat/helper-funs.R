@@ -81,20 +81,30 @@ knit_jekyll <- function(path, env = new.env(), eng = NULL) {
   }
 }
 
-all_chunk_regex <- paste0("engine[:] chr \"", OUR_TAGS[OUR_TAGS != "end"], "\"", collapse = ".+?")
+chunk_output <- function(TAGS = OUR_TAGS[OUR_TAGS != "end"]) {
+  paste0("engine[:] chr \"", TAGS, "\"", collapse = ".+?")
+}
 
-expect_tags_match <- function(object, TAGS) {
+expect_tags_match <- function(object, TAGS, n = 2 * length(TAGS) + 2 + 1) {
   # 1. Capture object and label
   act <- quasi_label(rlang::enquo(object), arg = "object")
 
   # 2. Call expect()
   dtags <- paste0("div class=['\"]", TAGS, "['\"]")
   act$matched <- vapply(dtags, grepl, logical(1), act$val)
+  act$n_closed <- length(strsplit(act$val, "[<][/]div")[[1]])
+  act$n_open <- length(strsplit(act$val, "[<]div class")[[1]])
   expect(
     all(act$matched),
     sprintf("The following tags are missing from %s: %s", act$lab, paste(TAGS[!act$matched], collapse = ", "))
   )
-  n <- (2 * length(TAGS)) + 2 + 1
+  expect(
+    act$n_closed == act$n_open,
+    sprintf(
+      "The number of closing div tags are unmatched. Expected %s, got %s",
+      format(act$n_open), format(act$n_closed)
+    )
+  )
   #  (2*length) for each non-end tag
   # + 2 for first and last chunk
   # + 1 fencepost
