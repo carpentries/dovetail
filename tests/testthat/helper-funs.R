@@ -74,3 +74,5 @@ knit_jekyll <- function(path, env = new.env(), eng = NULL) {
     out
   }
 }
+
+all_chunk_regex <- paste0("engine[:] chr \"", OUR_TAGS[OUR_TAGS != "end"], "\"", collapse = ".+?")
