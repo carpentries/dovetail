@@ -28,8 +28,8 @@ engine_generic_carp <- function(class) {
     # in the wd of the original document or worse, try to access the output
     # directory from inside the original directory.
     #
-    # I know this works, but I have to come up with other cases where it might
-    # not.
+    # Note: this appears not to work with reading in external files when rendered
+    # with RMarkdown, which means that this soluiton is not sustainable
     bd <- knitr::opts_knit$get("base.dir")
     if (!is.null(bd)) {
       wd <- getwd()
