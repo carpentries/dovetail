@@ -1,3 +1,9 @@
+test_that("internal counter produces a counter object", {
+  the_count <- cp_counter("test-")
+  expect_equal(the_count(), "test-1")
+  expect_equal(the_count(), "test-2")
+  expect_equal(the_count(reset = TRUE), "test-0")
+})
 
 test_that("engines have been registered", {
 
