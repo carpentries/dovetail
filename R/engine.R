@@ -9,43 +9,29 @@
 
 engine_generic_carp <- function(class) {
   function(options) {
-    # Avoid errors where there are multiple unnamed chunk labels
+    # Avoid errors where there are multiple unnamed chunk labels by changing the
+    # unnamed chunk labels to use our own counter.
     unc <- knitr::opts_knit$get("unnamed.chunk.label")
     on.exit(knitr::opts_knit$set(unnamed.chunk.label = unc))
-    # # Change unnamed chunk labels to the time and a random 10-char string
     knitr::opts_knit$set(unnamed.chunk.label = dove_chunk_label())
-    # randos <- function() {
-    #   paste(sample(c(letters, 0:9), 10, replace = TRUE), collapse = "")
-    # }
-    # knitr::opts_knit$set(unnamed.chunk.label = paste(as.character(Sys.time()), randos()))
 
     res <- parse_block(paste(options$code, collapse = "\n"), type = options$engine)
-    tmp <- tempfile(fileext = ".md")
-    on.exit(unlink(tmp), add = TRUE)
 
-    # This part happens because I noticed that even if I set a base.dir option
-    # to be one path above this, knitr would for some reason place the figures
-    # in the wd of the original document or worse, try to access the output
-    # directory from inside the original directory.
-    #
-    # Note: this appears not to work with reading in external files when rendered
-    # with RMarkdown, which means that this soluiton is not sustainable
-    bd <- knitr::opts_knit$get("base.dir")
-    if (!is.null(bd)) {
-      wd <- getwd()
-      on.exit(setwd(wd), add = TRUE)
-      setwd(bd)
+    # This is to prevent an issue with knitting using relative paths. If this
+    # happens, then knitr sets the working directory to be something other than
+    # where we should be.
+    if (is.null(knitr::opts_knit$get("root.dir"))) {
+      on.exit(knitr::opts_knit$set(root.dir = NULL), add = TRUE)
+      knitr::opts_knit$set(root.dir = getwd())
     }
 
-    knitr::knit(
-      output = tmp,
+    out <- knitr::knit(
       text = res,
       encoding = "UTF-8",
       # https://stackoverflow.com/a/62417329/2752888
       envir = knitr::knit_global()
     )
-    out <- readLines(tmp)
-    paste(out, collapse = "\n")
+    return(out)
   }
 }
 

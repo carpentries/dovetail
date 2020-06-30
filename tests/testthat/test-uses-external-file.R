@@ -64,8 +64,6 @@ test_that("engines work with relative dirs and parent env", {
 KRESET()
 
 test_that("engines work with rmarkdown and  relative dirs", {
-  skip("need to rework changing directory in engine")
-
   eng <- rmarkdown::md_document(variant = "markdown_mmd")
   tcf <- provision_jekyll("uses-external-file.Rmd", "produces-plot.Rmd")
   expect_output(tct <- knit_jekyll(tcf, eng = eng), chunk_output("solution"))
@@ -78,8 +76,6 @@ test_that("engines work with rmarkdown and  relative dirs", {
 })
 
 test_that("engines work with relative dirs and parent env", {
-  skip("need to rework changing directory in engine")
-
   eng <- rmarkdown::md_document(variant = "markdown_mmd")
   tcf <- provision_jekyll("uses-external-file.Rmd", "produces-plot.Rmd")
   expect_output(tct <- knit_jekyll(tcf, env = parent.frame(), eng = eng), chunk_output("solution"))

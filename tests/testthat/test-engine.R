@@ -34,9 +34,10 @@ test_that("engines have been registered", {
 #' @solution olleH Solution
 #'
 #' ```{r}
-#' list.files()
+#' getwd()
 #' h$ello
 #' h$ere
+#' plot(1:10)
 #' ```
 "
 
@@ -51,6 +52,8 @@ test_that("engines have been registered", {
       assign("h", list(ello = "hello", ere = "there"), envir = e)
       assign("knit_global", e, kenv)
 
+      # Nothing has been produced
+      expect_false(fs::file_exists(fs::path(d, "figure", "dovetail-chunk-1-1-1.png")))
       ENG <- engine_generic_carp(i)
       KNG <- knitr::knit_engines$get(i)
       expect_type(ENG, "closure")
@@ -76,9 +79,11 @@ test_that("engines have been registered", {
 
       expect_identical(res, kes)
       # Output is produced
-      expect_match(res, '[1] "fiddle"', fixed = TRUE)
+      expect_match(res, "fiddle/bow") # the working directory in bow
       expect_match(res, '[1] "hello"', fixed = TRUE)
       expect_match(res, '[1] "there"', fixed = TRUE)
+      expect_true(fs::file_exists(fs::path(d, "figure", "dovetail-chunk-1-1-1.png")))
+      try(fs::dir_delete(fs::path(d, "figure")), silent = TRUE)
       # Div tags are applied
       div_expected <- paste0("<div class='", i, "' markdown='1'>")
       expect_match(res, div_expected, fixed = TRUE)
