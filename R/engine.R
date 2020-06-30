@@ -15,6 +15,24 @@ engine_generic_carp <- function(class) {
     on.exit(knitr::opts_knit$set(unnamed.chunk.label = unc))
     knitr::opts_knit$set(unnamed.chunk.label = dove_chunk_label())
 
+    # Handling user-specified parameters
+    chunks <- knitr::opts_chunk$get()
+    on.exit(knitr::opts_chunk$set(chunks), add = TRUE)
+    options_no_engine <- options[!names(options) %in% c("code", "engine")]
+    # The cache is an interesting one. Because we are evaluating these chunks
+    # inside of the knitr environment, they will absolutely try to load the
+    # cache before it's done. We have to turn on cache.rebuild temporarily.
+    options_no_engine$cache <- FALSE
+    # the_cache <- list.files(
+    #   options$cache.path,
+    #   pattern = paste0(options$label, "_.*RData")
+    # )
+    # options_no_engine$cache.rebuild <- options$cache &&
+    #   (options$cache.rebuild || length(the_cache) == 0)
+    # this_hash <- options$hash
+    # options_no_engine$hash <- NULL
+    knitr::opts_chunk$set(options_no_engine)
+
     res <- parse_block(paste(options$code, collapse = "\n"), type = options$engine)
 
     # This is to prevent an issue with knitting using relative paths. If this
