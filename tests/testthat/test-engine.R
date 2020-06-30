@@ -87,8 +87,6 @@ test_that("engines have been registered", {
       # Div tags are applied
       div_expected <- paste0("<div class='", i, "' markdown='1'>")
       expect_match(res, div_expected, fixed = TRUE)
-      # No files are leftover
-      expect_identical(l, list.files(tempdir()))
       # Unnamed chunk label stays the same
       expect_identical(knitr::opts_knit$get("unnamed.chunk.label"), UNC)
     }
