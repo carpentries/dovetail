@@ -104,14 +104,16 @@ expect_tags_match <- function(object, TAGS, n = 2 * length(TAGS) + 2 + 1) {
   act <- quasi_label(rlang::enquo(object), arg = "object")
 
   # 2. Call expect()
-  dtags <- paste0("div class=['\"]", TAGS, "['\"]")
-  act$matched <- vapply(dtags, grepl, logical(1), act$val)
+  if (length(TAGS)) {
+    dtags <- paste0("div class=['\"]", TAGS, "['\"]")
+    act$matched <- vapply(dtags, grepl, logical(1), act$val)
+    expect(
+      all(act$matched),
+      sprintf("The following tags are missing from %s: %s", act$lab, paste(TAGS[!act$matched], collapse = ", "))
+    )
+  }
   act$n_closed <- length(strsplit(act$val, "[<][/]div")[[1]])
   act$n_open <- length(strsplit(act$val, "[<]div class")[[1]])
-  expect(
-    all(act$matched),
-    sprintf("The following tags are missing from %s: %s", act$lab, paste(TAGS[!act$matched], collapse = ", "))
-  )
   expect(
     act$n_closed == act$n_open,
     sprintf(
