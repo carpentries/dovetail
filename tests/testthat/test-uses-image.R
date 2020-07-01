@@ -23,6 +23,7 @@ test_that("engines work with absolute dirs", {
   expect_match(txt, "plot of chunk dovetail-chunk-1", fixed = TRUE)
   # The widths are respected
   expect_match(txt, "width=['\"]296px['\"] height=['\"]250px['\"]")
+  expect_match(txt, "width=['\"]444px['\"] height=['\"]375px['\"]")
   expect_match(txt, "width=['\"]740px['\"] height=['\"]625px['\"]")
   # The imported style is respected
   expect_match(txt, "display: block; margin: auto;")
@@ -50,6 +51,7 @@ test_that("engines work with absolute dirs and parent env", {
   expect_match(txt, "plot of chunk dovetail-chunk-1", fixed = TRUE)
   # The widths are respected
   expect_match(txt, "width=['\"]296px['\"] height=['\"]250px['\"]")
+  expect_match(txt, "width=['\"]444px['\"] height=['\"]375px['\"]")
   expect_match(txt, "width=['\"]740px['\"] height=['\"]625px['\"]")
   # The imported style is respected
   expect_match(txt, "display: block; margin: auto;")
@@ -73,6 +75,7 @@ test_that("engines work with relative dirs", {
   expect_match(txt, "plot of chunk dovetail-chunk-1", fixed = TRUE)
   # The widths are respected
   expect_match(txt, "width=['\"]296px['\"] height=['\"]250px['\"]")
+  expect_match(txt, "width=['\"]444px['\"] height=['\"]375px['\"]")
   expect_match(txt, "width=['\"]740px['\"] height=['\"]625px['\"]")
   # The imported style is respected
   expect_match(txt, "display: block; margin: auto;")
@@ -94,6 +97,7 @@ test_that("engines work with relative dirs and parent env", {
   expect_match(txt, "plot of chunk dovetail-chunk-1", fixed = TRUE)
   # The widths are respected
   expect_match(txt, "width=['\"]296px['\"] height=['\"]250px['\"]")
+  expect_match(txt, "width=['\"]444px['\"] height=['\"]375px['\"]")
   expect_match(txt, "width=['\"]740px['\"] height=['\"]625px['\"]")
   # The imported style is respected
   expect_match(txt, "display: block; margin: auto;")
@@ -116,6 +120,7 @@ test_that("engines work with rmarkdown and relative dirs", {
   # NOTE: in RMarkdown, images are not titled with their chunk title
   # The widths are respected
   expect_match(txt, "width=['\"]296px['\"] height=['\"]250px['\"]")
+  expect_match(txt, "width=['\"]444px['\"] height=['\"]375px['\"]")
   expect_match(txt, "width=['\"]740px['\"] height=['\"]625px['\"]")
   # The imported style is respected
   expect_match(txt, "display: block; margin: auto;")
@@ -137,6 +142,7 @@ test_that("engines work with rmarkdown relative dirs and parent env", {
   # NOTE: in RMarkdown, images are not titled with their chunk title
   # The widths are respected
   expect_match(txt, "width=['\"]296px['\"] height=['\"]250px['\"]")
+  expect_match(txt, "width=['\"]444px['\"] height=['\"]375px['\"]")
   expect_match(txt, "width=['\"]740px['\"] height=['\"]625px['\"]")
   # The imported style is respected
   expect_match(txt, "display: block; margin: auto;")

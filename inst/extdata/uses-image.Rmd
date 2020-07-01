@@ -20,8 +20,16 @@ knitr::include_graphics("images/mm.png")
 #' ![megaman is awesome](images/mm.png "megaman sprite")
 #' 
 #' @solution
+#' 
+#' enhance
+#' 
+#' ```{r, out.width = f(148, 3), out.height = f(125, 3)}
+knitr::include_graphics("images/mm.png")
+#' ```
+#' 
+#' ENHANCE
 #'
-#' ```{r}
+#' ```{r, echo = FALSE}
 knitr::include_graphics("images/mm.png")
 #' ```
 #'
