@@ -7,6 +7,7 @@ callout
 carpentries
 Carpentries
 CMD
+cmdline
 codecov
 Codecov
 config
@@ -40,6 +41,7 @@ hashFiles
 htmltools
 http
 https
+io
 jekerr
 jekyll
 Kamvar
@@ -98,6 +100,7 @@ saveRDS
 sessioninfo
 setwd
 sexualized
+simlar
 socio
 soln
 soltuions
@@ -108,6 +111,7 @@ StackOverflow
 styler
 sublicense
 sudo
+swcarpentry
 sysreq
 sysreqs
 tempfile
