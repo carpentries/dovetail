@@ -15,6 +15,10 @@ test_that("engines work with absolute dirs", {
 
   txt <- paste(readLines(tmp), collapse = "\n")
   expect_tags_match(txt, these_tags, n = 1)
+  # The output of x should exist
+  expect_match(txt, "\nThe cat is purrring on my lap.", perl = TRUE)
+  # The chunk itself should not exist
+  expect_failure(expect_match(txt, "Will this be included?", fixed = TRUE))
 })
 
 test_that("engines work with absolute dirs and parent env", {
@@ -30,6 +34,10 @@ test_that("engines work with absolute dirs and parent env", {
 
   txt <- paste(readLines(tmp), collapse = "\n")
   expect_tags_match(txt, these_tags, n = 1)
+  # The output of x should exist
+  expect_match(txt, "\nThe cat is purrring on my lap.", perl = TRUE)
+  # The chunk itself should not exist
+  expect_failure(expect_match(txt, "Will this be included?", fixed = TRUE))
 })
 
 KRESET()
@@ -41,6 +49,10 @@ test_that("engines work with relative dirs", {
   expect_true(file.exists(tct))
   txt <- paste(readLines(tct), collapse = "\n")
   expect_tags_match(txt, these_tags, n = 1)
+  # The output of x should exist
+  expect_match(txt, "\nThe cat is purrring on my lap.", perl = TRUE)
+  # The chunk itself should not exist
+  expect_failure(expect_match(txt, "Will this be included?", fixed = TRUE))
 })
 
 test_that("engines work with relative dirs and parent env", {
@@ -50,6 +62,11 @@ test_that("engines work with relative dirs and parent env", {
   expect_true(file.exists(tct))
   txt <- paste(readLines(tct), collapse = "\n")
   expect_tags_match(txt, these_tags, n = 1)
+  # The output of x should exist
+  expect_match(txt, "\nThe cat is purrring on my lap.", perl = TRUE)
+  # The chunk itself should not exist
+  expect_failure(expect_match(txt, "Will this be included?", fixed = TRUE))
+
 })
 
 KRESET()
@@ -62,6 +79,10 @@ test_that("engines work with rmarkdown and  relative dirs", {
   expect_true(file.exists(tct))
   txt <- paste(readLines(tct), collapse = "\n")
   expect_tags_match(txt, these_tags, n = 1)
+  # The output of x should exist
+  expect_match(txt, "\nThe cat is purrring on my lap.", perl = TRUE)
+  # The chunk itself should not exist
+  expect_failure(expect_match(txt, "Will this be included?", fixed = TRUE))
 })
 
 test_that("engines work with relative dirs and parent env", {
@@ -72,6 +93,10 @@ test_that("engines work with relative dirs and parent env", {
   expect_true(file.exists(tct))
   txt <- paste(readLines(tct), collapse = "\n")
   expect_tags_match(txt, these_tags, n = 1)
+  # The output of x should exist
+  expect_match(txt, "\nThe cat is purrring on my lap.", perl = TRUE)
+  # The chunk itself should not exist
+  expect_failure(expect_match(txt, "Will this be included?", fixed = TRUE))
 })
 
 KRESET()
