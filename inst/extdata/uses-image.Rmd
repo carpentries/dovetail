@@ -6,7 +6,7 @@ title: Test the different knitr engines
 library(dovetail)
 source(dvt_opts())
 f <- function(s, m) paste0(s * m, "px")
-knitr::opts_chunk$set(out.width = f(148, 2), out.height = f(148, 2))
+knitr::opts_chunk$set(out.width = f(148, 2), out.height = f(125, 2))
 ```
 
 ```{r}
