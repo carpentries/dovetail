@@ -5,6 +5,14 @@ KRESET <- function() {
   knitr::knit_hooks$set(knitr::knit_hooks$get(default = TRUE))
 }
 
+mock_block <- function(txt) {
+  paste0(
+    "<div class='challenge' markdown='1'>\n\n",
+    gsub("#' ", "", txt, fixed = TRUE),
+    "\n\n</div>"
+  )
+}
+
 # Load an example file
 example_file <- function(...) {
   # We are not in a knitr document
@@ -88,7 +96,7 @@ knit_jekyll <- function(path, env = new.env(), eng = NULL) {
 }
 
 chunk_output <- function(TAGS = OUR_TAGS[OUR_TAGS != "end"]) {
-  paste0("engine[:] chr \"", TAGS, "\"", collapse = ".+?")
+  paste0("engine *?[:] chr \"", TAGS, "\"", collapse = ".+?")
 }
 
 expect_tags_match <- function(object, TAGS, n = 2 * length(TAGS) + 2 + 1) {
