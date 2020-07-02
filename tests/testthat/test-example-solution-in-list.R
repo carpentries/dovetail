@@ -1,14 +1,14 @@
 # The file to test
-the_file     <- "uses-include.Rmd"
+the_file     <- "example-solution-in-list.Rmd"
 # Tags in this particular file
-these_tags   <- character(0)
+these_tags   <- c("challenge", rep("solution", 3L))
 # Number of expected language chunks to show up
-lang_chunks  <- 0
+lang_chunks  <- 3L
 # One of the top-level chunks processed through our engines
-output_chunk <- "callout"
+output_chunk <- "challenge"
 
 test_that("engines work with absolute dirs", {
-  tct <- example_file("uses-include.Rmd")
+  tct <- example_file(the_file)
   tmp <- make_tmp()
 
   expect_output(
@@ -24,7 +24,7 @@ test_that("engines work with absolute dirs", {
 })
 
 test_that("engines work with absolute dirs and parent env", {
-  tct <- example_file("uses-include.Rmd")
+  tct <- example_file(the_file)
   tmp <- make_tmp()
 
   expect_output(
@@ -42,7 +42,7 @@ test_that("engines work with absolute dirs and parent env", {
 KRESET()
 
 test_that("engines work with relative dirs", {
-  tcf <- provision_jekyll("uses-include.Rmd")
+  tcf <- provision_jekyll(the_file)
   expect_output(tct <- knit_jekyll(tcf), chunk_output(output_chunk))
 
   expect_true(file.exists(tct))
@@ -52,7 +52,7 @@ test_that("engines work with relative dirs", {
 })
 
 test_that("engines work with relative dirs and parent env", {
-  tcf <- provision_jekyll("uses-include.Rmd")
+  tcf <- provision_jekyll(the_file)
   expect_output(tct <- knit_jekyll(tcf, env = parent.frame()), chunk_output(output_chunk))
 
   expect_true(file.exists(tct))
@@ -65,7 +65,7 @@ KRESET()
 
 test_that("engines work with rmarkdown and  relative dirs", {
   eng <- rmarkdown::md_document(variant = "markdown_mmd")
-  tcf <- provision_jekyll("uses-include.Rmd")
+  tcf <- provision_jekyll(the_file)
   expect_output(tct <- knit_jekyll(tcf, eng = eng), chunk_output(output_chunk))
 
   expect_true(file.exists(tct))
@@ -76,7 +76,7 @@ test_that("engines work with rmarkdown and  relative dirs", {
 
 test_that("engines work with relative dirs and parent env", {
   eng <- rmarkdown::md_document(variant = "markdown_mmd")
-  tcf <- provision_jekyll("uses-include.Rmd")
+  tcf <- provision_jekyll(the_file)
   expect_output(tct <- knit_jekyll(tcf, env = parent.frame(), eng = eng), chunk_output(output_chunk))
 
   expect_true(file.exists(tct))
