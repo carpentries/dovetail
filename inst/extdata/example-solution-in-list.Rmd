@@ -26,18 +26,18 @@ This is a simlar setup to
 #' @solution Use `sum()`
 #' 
 #' ```{r}
-#' x <- print(sum(x, x))
+#' x <- print(sum(1, 2))
 #' ```
 #' @end
 #' 3. Use an operator *like* a function
 #' @solution Use `` `+`() ``
 #' 
 #' ```{r}
-#' x <- print(`+`(x, x))
+#' x <- print(`+`(2, 3))
 #' ```
 #' @end
 #' 
 #' R is kinda weird, no?
 ```
 
-`r x + x`
+`r 3 + 5`
