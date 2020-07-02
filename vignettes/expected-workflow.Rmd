@@ -1,0 +1,230 @@
+---
+title: "Expected Workflow"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Expected Workflow}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(dovetail)
+```
+
+This package is designed to be compatible with existing workflows, meaning that
+one should be able to mix the current syntax with new syntax seamlessly:
+
+# Example 1: nested block quote
+
+<div class="row" markdown="1">
+
+<div class="col-md-6" markdown="1">
+
+## With New Formatting
+
+```{challenge, coo = TRUE}
+#' ## Challenge 2
+#' 
+#' Given the following code:
+#'
+#' ```{r}
+x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
+names(x) <- c('a', 'b', 'c', 'd', 'e')
+print(x)
+#' ```
+#'
+#' Write a subsetting command to return the values in x that are greater than 4 and less than 7.
+#'
+#' @solution Solution to challenge 2
+#'
+#' ```{r}
+x_subset <- x[x<7 & x>4]
+print(x_subset)
+#' ```
+```
+
+</div>
+<div class="col-md-6" markdown="1">
+
+## With Old Formatting
+
+````
+> ## Challenge 2
+> 
+> Given the following code:
+> 
+> ```{r}
+> x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
+> names(x) <- c('a', 'b', 'c', 'd', 'e')
+> print(x)
+> ```
+> 
+> Write a subsetting command to return the values in x that are greater than 4 and less than 7.
+> 
+> > ## Solution to challenge 2
+> > 
+> > ```{r}
+> > x_subset <- x[x<7 & x>4]
+> > print(x_subset)
+> > ```
+> {: .solution}
+{: .challenge}
+````
+
+> ## Challenge 2
+> 
+> Given the following code:
+> 
+> ```{r}
+> x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
+> names(x) <- c('a', 'b', 'c', 'd', 'e')
+> print(x)
+> ```
+> 
+> Write a subsetting command to return the values in x that are greater than 4 and less than 7.
+> 
+> > ## Solution to challenge 2
+> > 
+> > ```{r}
+> > x_subset <- x[x<7 & x>4]
+> > print(x_subset)
+> > ```
+> {: .solution}
+{: .challenge}
+
+
+</div>
+</div>
+
+
+# Options
+
+It's possible to set different options for each chunk just like you would any
+other Rmarkdown chunk. For example, this following chunk is provisioned with:
+ `{callout, eval = FALSE}`
+
+
+```{callout, eval = FALSE, coo = TRUE}
+#' The code in this callout chunk will not be evaluated, but the text will
+#' still appear!
+#' ```{r}
+stop("hammertime")
+#' ```
+```
+<!-- NB: I have to cheat a little here -->
+```{callout, eval = FALSE}
+#' The code in this callout chunk will not be evaluated, but the text will
+#' still appear!
+#' ```{r}
+stop("hammertime")
+#' ```
+```
+
+
+## Overriding options
+
+You can override options within the chunk. This following chunk is provisioned
+with `{discussion, echo = FALSE}`
+
+```{discussion, coo = TRUE, echo = FALSE}
+#' All chunks within the dovetail chunk **will be formatted as markdown**
+#' so you can write your lessons with ease.
+#' 
+#' Moreover:
+#' 
+#'
+#' - chunk options are inherited
+#' - objects within chunks persist in the environment
+#' - you can modify chunk options within R chunks
+#'
+#' 
+#' ### Example: a sentence
+#' 
+#' ```{r}
+cat("THERE IS A HIDDEN CHUNK HERE!")
+x <- "the cat purrrs on my lap."
+#' ```
+#'
+#' ```{r echo = TRUE}
+n <- length(strsplit(x, " ")[[1]]) # how many words does "x" have
+n
+#' ```
+#'
+#' A sentence that has **`r n`** words is "`r x`"
+```
+
+The sentence "`r x`" has **`r n`** words.
+
+## Jekyll options
+
+The Carpentries lessons currently run on Jekyll, so we have provided hooks to
+modify the output to work with jekyll, which can be loaded with the `dvt_opts()`
+function:
+
+```{r}
+source(dvt_opts())
+```
+
+```{challenge}
+#' here is some R code
+#' ```{r}
+1 + 1
+#' ```
+```
+
+```{r echo = FALSE}
+  knitr::opts_knit$set(knitr::opts_knit$get(default = TRUE))
+  knitr::opts_chunk$set(knitr::opts_chunk$get(default = TRUE))
+  knitr::knit_hooks$set(knitr::knit_hooks$get(default = TRUE))
+```
+
+The code for this is migrated from the styles repository:
+
+````r
+```{r echo = FALSE, comment = NA, results = 'asis'}
+cat(readLines(dvt_opts()), sep = "\n")
+```
+````
+
+
+# Preparing an existing lesson for using {dovetail}:
+
+To update the lessons, the special blockquotes will be converted to code chunks and the setup chunk will do the following replacement:
+
+```diff
+-source('../bin/chunk-options.R')
++library('dovetail')
++source(dvt_opts())
+```
+
+To prepare an existing lesson with RMarkdown, install {dovetail} and {pegboard}
+with
+
+```r
+remotes::install_github("carpentries/pegboard", dep = TRUE)
+remotes::install_github("carpentries/dovetail", dep = TRUE)
+```
+
+> **A note on {pegboard}**: This package will read in and transform your
+> existing lessons to the dovetail format, but there may be rendering mistakes, 
+> so please inspect the result with git diff and rendering the site locally
+
+There are two steps to updating the lessons:
+
+ 1. open your lesson in RStudio
+ 2. run `source(system.file("convert", "convert.R", package = "dovetail"))`
+ 
+The conversion script looks like this:
+
+````r
+```{r echo = FALSE, comment = NA, results = 'asis'}
+cat(readLines(system.file("convert", "convert.R", package = "dovetail")), sep = "\n")
+```
+````

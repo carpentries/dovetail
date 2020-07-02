@@ -17,8 +17,9 @@ engine_generic_carp <- function(class) {
 
     # Handling user-specified parameters
     chunks <- knitr::opts_chunk$get()
-    on.exit(knitr::opts_chunk$set(chunks), add = TRUE)
+    on.exit(knitr::opts_chunk$set(c(chunks, list(coo = NULL))), add = TRUE)
     options_no_engine <- options[!names(options) %in% c("code", "engine")]
+    coo <- isTRUE(options_no_engine[["coo"]])
     # The cache is an interesting one. Because we are evaluating these chunks
     # inside of the knitr environment, they will absolutely try to load the
     # cache before it's done. We have to turn on cache.rebuild temporarily.
@@ -49,7 +50,15 @@ engine_generic_carp <- function(class) {
       # https://stackoverflow.com/a/62417329/2752888
       envir = knitr::knit_global()
     )
-    return(out)
+    # This is an internal option that I use show the input and output.
+    if (coo) {
+      out <- if (options$eval) out else "\r"
+      code <- paste(options$code, collapse = "\n")
+      code <- paste0("```r\n", code, "\n```")
+      return(paste0(code, "\n", out, "\n"))
+    } else {
+      return(out)
+    }
   }
 }
 

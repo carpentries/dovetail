@@ -13,10 +13,10 @@ This is a simlar setup to
 
 ```{challenge}
 #' 
-#' Let's try the ways we can add two numbers
+#'Let's try the ways we can add two numbers
 #'
 #' 1. Use an operator
-#' @solution Use `+`
+#'@solution Use `+`
 #' 
 #' ```{r}
 #' x <- print(1 + 1)

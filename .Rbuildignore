@@ -6,3 +6,6 @@
 ^\.github$
 ^\.pre-commit-config\.yaml$
 ^codecov\.yml$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

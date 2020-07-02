@@ -23,11 +23,13 @@ Suggests:
     covr,
     fs,
     pegboard,
+    remotes,
     reticulate,
     rlang,
     rmarkdown,
     testthat,
-    withr
+    withr,
+    xml2
 VignetteBuilder: 
     knitr
 Remotes:

@@ -1,5 +1,5 @@
 ---
-title: "dovetail"
+title: "Introduction to dovetail"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introduction to dovetail}
@@ -43,11 +43,9 @@ add <- function(x, y) {
 ```
 
 In the same vein, we could use this sort of syntax to create our own solution
-for generating special callout blocks within the Carpentries lessons, which
-currently rely on the Kramdown interpreter with Jekyll:
+for generating special callout blocks within the Carpentries lessons:
 
-````markdown
-```{ENGINE, eval = FALSE}
+```{challenge, eval = FALSE, coo = TRUE}
 #' ## Challenge 2
 #' 
 #' Given the following code:
@@ -66,25 +64,6 @@ x_subset <- x[x<7 & x>4]
 print(x_subset)
 #' ```
 ```
-````
-
-## Naming ideas
-
-This package is currently called `{dovetail}`, but I think it's a bit clunky.
-One of the things we want to consider is the fact that we should be able to run
-any language within the chunks. Moreover, because the roxygen tags would
-indicate the type of block to be generated, we would want the package name to be
-the same as the block name to avoid any confusion. I'm adding a couple of
-potential names that are related in some fashion to carpentries, but we
-definitely do not have to follow this.
-
-Add more names as you see fit here:
-
- - {dovetail}
- - {pegboard} <https://en.wikipedia.org/wiki/Pegboard>
- - {mitre} <https://en.wikipedia.org/wiki/Mitre_joint>
- - {sawhorse} <https://en.wikipedia.org/wiki/Sawhorse>
- - {particleboard} <https://en.wikipedia.org/wiki/Particle_board>
 
 ## Motivation
 
@@ -156,7 +135,7 @@ The idea behind this package is to write an engine for knitr that will parse the
 above code block to look like this:
 
 
-```{challenge "245:1-264:14", echo = FALSE, comment = NA}
+```{challenge "245:1-264:14", coo = TRUE, echo = TRUE}
 #' ## Challenge 2
 #' 
 #' Given the following code:

@@ -5,6 +5,19 @@ test_that("internal counter produces a counter object", {
   expect_equal(the_count(reset = TRUE), "test-0")
 })
 
+test_that("coo option works for the engine", {
+  ENG <- engine_generic_carp("challenge")
+  chopts <- knitr::opts_chunk$get()
+  chopts$code <- "#' hello"
+  chopts$engine <- "challenge"
+  chopts$coo <- TRUE
+  res <- ENG(chopts)
+  expect_equal(res, "```r\n#' hello\n```\n<div class='challenge' markdown='1'>\n\nhello\n\n</div>\n")
+  chopts$coo <- FALSE
+  res <- ENG(chopts)
+  expect_equal(res, "<div class='challenge' markdown='1'>\n\nhello\n\n</div>")
+})
+
 test_that("engines have been registered", {
 
   # We are not in a knitr document
