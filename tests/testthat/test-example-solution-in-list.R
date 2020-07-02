@@ -23,7 +23,7 @@ test_that("engines work with absolute dirs", {
   expect_match(txt, "[1] 2", fixed = TRUE)
   expect_match(txt, "[1] 3", fixed = TRUE)
   expect_match(txt, "[1] 5", fixed = TRUE)
-  expect_match(txt, "8", fixed = TRUE)
+  expect_match(txt, "\n8", fixed = TRUE)
 })
 
 test_that("engines work with absolute dirs and parent env", {
@@ -42,7 +42,7 @@ test_that("engines work with absolute dirs and parent env", {
   expect_match(txt, "[1] 2", fixed = TRUE)
   expect_match(txt, "[1] 3", fixed = TRUE)
   expect_match(txt, "[1] 5", fixed = TRUE)
-  expect_match(txt, "8", fixed = TRUE)
+  expect_match(txt, "\n8", fixed = TRUE)
 })
 
 KRESET()
@@ -58,7 +58,7 @@ test_that("engines work with relative dirs", {
   expect_match(txt, "[1] 2", fixed = TRUE)
   expect_match(txt, "[1] 3", fixed = TRUE)
   expect_match(txt, "[1] 5", fixed = TRUE)
-  expect_match(txt, "8", fixed = TRUE)
+  expect_match(txt, "\n8", fixed = TRUE)
 })
 
 test_that("engines work with relative dirs and parent env", {
@@ -72,7 +72,7 @@ test_that("engines work with relative dirs and parent env", {
   expect_match(txt, "[1] 2", fixed = TRUE)
   expect_match(txt, "[1] 3", fixed = TRUE)
   expect_match(txt, "[1] 5", fixed = TRUE)
-  expect_match(txt, "8", fixed = TRUE)
+  expect_match(txt, "\n8", fixed = TRUE)
 })
 
 KRESET()
@@ -89,7 +89,7 @@ test_that("engines work with rmarkdown and  relative dirs", {
   expect_match(txt, "[1] 2", fixed = TRUE)
   expect_match(txt, "[1] 3", fixed = TRUE)
   expect_match(txt, "[1] 5", fixed = TRUE)
-  expect_match(txt, "8", fixed = TRUE)
+  expect_match(txt, "\n8", fixed = TRUE)
 })
 
 test_that("engines work with relative dirs and parent env", {
@@ -104,7 +104,7 @@ test_that("engines work with relative dirs and parent env", {
   expect_match(txt, "[1] 2", fixed = TRUE)
   expect_match(txt, "[1] 3", fixed = TRUE)
   expect_match(txt, "[1] 5", fixed = TRUE)
-  expect_match(txt, "8", fixed = TRUE)
+  expect_match(txt, "\n8", fixed = TRUE)
 })
 
 KRESET()
