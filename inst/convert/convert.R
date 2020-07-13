@@ -1,7 +1,7 @@
 if (!requireNamespace("remotes")) {
   install.packages("remotes")
 }
-remotes::install_github("zkamvar/pegboard")
+remotes::install_github("carpentries/pegboard")
 library("pegboard")
 library("purrr")
 library("xml2")
@@ -24,7 +24,7 @@ use_dovetail <- function(body) {
   setup <- xml2::xml_find_first(body, ".//d1:code_block[contains(text(), '../bin/chunk-options.R')]")
   txt   <- xml2::xml_text(setup)
   txt   <- gsub(
-    "source\\(.../bin/chunk-options.R.\\)", 
+    "source\\(.../bin/chunk-options.R.\\)",
     "library('dovetail')\nsource(dvt_opts())",
     txt
   )

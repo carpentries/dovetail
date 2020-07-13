@@ -1,0 +1,30 @@
+---
+title: Test the different knitr engines
+---
+
+```{r setup, include = FALSE}
+library(dovetail)
+source(dvt_opts())
+```
+
+```{r some-code, echo = FALSE}
+x  <- "The cat purrrs on my lap."
+```
+
+```{callout showme, results = "hide"}
+#' ```{r ifyoucan}
+y <- print("now you see me")
+#' ```
+#' 
+#' `r toupper(y)`
+#' 
+```
+
+```{discussion echo = FALSE, results = 'asis'}
+#' This code chunk should not echo itself
+#' 
+#' 
+#' ```{r}
+cat(x)
+#' ```
+```

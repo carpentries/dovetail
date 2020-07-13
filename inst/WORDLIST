@@ -7,6 +7,7 @@ callout
 carpentries
 Carpentries
 CMD
+cmdline
 codecov
 Codecov
 config
@@ -28,6 +29,7 @@ extdata
 fileext
 francois
 François
+fs
 gapminder
 gcc
 getRversion
@@ -39,6 +41,7 @@ hashFiles
 htmltools
 http
 https
+io
 jekerr
 jekyll
 Kamvar
@@ -75,8 +78,10 @@ readLines
 repo
 repr
 reprex
+requireNamespace
 reticulate
 RHUB
+rlang
 rmarkdown
 RMarkdown
 Rmd
@@ -95,6 +100,7 @@ saveRDS
 sessioninfo
 setwd
 sexualized
+simlar
 socio
 soln
 soltuions
@@ -105,6 +111,7 @@ StackOverflow
 styler
 sublicense
 sudo
+swcarpentry
 sysreq
 sysreqs
 tempfile
@@ -115,6 +122,7 @@ ubuntu
 VignetteBuilder
 wd
 wikipedia
+withAutoprint
 withr
 writeLines
 www

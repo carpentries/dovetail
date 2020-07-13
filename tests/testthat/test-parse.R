@@ -1,12 +1,14 @@
 test_that("parse_block works with simple cases", {
-  expect_identical(parse_block("what"), "what")
+  expect_identical(parse_block("what"), mock_block("what"))
   expect_error(parse_block(letters), "there is more than one text block here")
 
   txt <- "#' this is a test\n#' ```{r}1 + 1\n#' ```"
-  expect_identical(parse_block(txt), gsub("#' ", "", txt, fixed = TRUE))
+  expect_identical(parse_block(txt), mock_block(txt))
 
   txt <- "#' @solution this is a test\n#' ```{r}1 + 1\n#' ```"
-  expected <- "<div class='challenge' markdown='1'>\n\n\n<div class='solution' markdown='1'>\n\n## this is a test\n ```{r}1 + 1\n```\n\n</div>\n\n</div>"
+  expected <- mock_block(
+    "\n<div class='solution' markdown='1'>\n\n## this is a test\n ```{r}1 + 1\n```\n\n</div>"
+  )
   expect_identical(parse_block(txt), expected)
   expect_identical(parse_block(txt, type = "callout"), gsub("challenge", "callout", expected))
   expect_identical(parse_block(txt, opts = "smile=':)'"), gsub("markdown='1'", "smile=':)'", expected, fixed = TRUE))

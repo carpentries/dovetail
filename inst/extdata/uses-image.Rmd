@@ -1,0 +1,38 @@
+---
+title: Test the different knitr engines
+---
+
+```{r setup, include = FALSE}
+library(dovetail)
+source(dvt_opts())
+f <- function(s, m) paste0(s * m, "px")
+knitr::opts_chunk$set(out.width = f(148, 2), out.height = f(125, 2))
+```
+
+```{r}
+knitr::include_graphics("images/mm.png")
+```
+
+```{challenge showme, results = 'asis', out.width = f(148, 5), out.height = f(125, 5)}
+#' 
+#' Show me an image of megaman, but bigger
+#'
+#' ![megaman is awesome](images/mm.png "megaman sprite")
+#' 
+#' @solution
+#' 
+#' enhance
+#' 
+#' ```{r, out.width = f(148, 3), out.height = f(125, 3)}
+knitr::include_graphics("images/mm.png")
+#' ```
+#' 
+#' ENHANCE
+#'
+#' ```{r, echo = FALSE}
+knitr::include_graphics("images/mm.png")
+#' ```
+#'
+#' @end
+#' 
+```

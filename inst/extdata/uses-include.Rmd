@@ -1,0 +1,21 @@
+---
+title: Test the different knitr engines
+---
+
+```{r setup, include = FALSE}
+library(dovetail)
+source(dvt_opts())
+```
+
+
+```{callout include = FALSE}
+#' 
+#' Will this be included?  
+#' 
+#' ```{r}
+x <- "The cat is purrring on my lap."
+#' ```
+#' 
+```
+
+`r x`

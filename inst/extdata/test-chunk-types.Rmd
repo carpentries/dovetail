@@ -1,0 +1,251 @@
+---
+title: Test the different knitr engines
+---
+
+
+```{r setup, include = FALSE}
+library(dovetail)
+library(knitr)
+source(dvt_opts())
+opts_chunk$set(error = TRUE)
+```
+
+
+```{r some-code}
+x  <- "The cat purrrs on my lap."
+```
+
+
+```{callout}
+#' ## Count words
+#' 
+#' 1. How many words are in the sentence `x`?
+#'
+#' @solution
+#'
+#' There is more than one way of doing this but here is a solution.
+#' 
+#' ```{r}
+n_words <- length(strsplit(x, " ")[[1]])
+n_words
+#' ```
+#'
+#' 1. How many letters are in the sentence `x`?
+#' 
+#'
+#' ```{r}
+n_chars <- nchar(gsub("[^a-zA-Z]", "", x))
+n_chars
+#' ``` 
+```
+
+```{challenge}
+#' ## Count words
+#' 
+#' 1. How many words are in the sentence `x`?
+#'
+#' @solution
+#'
+#' There is more than one way of doing this but here is a solution.
+#' 
+#' ```{r}
+n_words <- length(strsplit(x, " ")[[1]])
+n_words
+#' ```
+#'
+#' 1. How many letters are in the sentence `x`?
+#' 
+#'
+#' ```{r}
+n_chars <- nchar(gsub("[^a-zA-Z]", "", x))
+n_chars
+#' ``` 
+```
+
+```{checklist}
+#' ## Count words
+#' 
+#' 1. How many words are in the sentence `x`?
+#'
+#' @solution
+#'
+#' There is more than one way of doing this but here is a solution.
+#' 
+#' ```{r}
+n_words <- length(strsplit(x, " ")[[1]])
+n_words
+#' ```
+#'
+#' 1. How many letters are in the sentence `x`?
+#' 
+#'
+#' ```{r}
+n_chars <- nchar(gsub("[^a-zA-Z]", "", x))
+n_chars
+#' ``` 
+```
+
+```{discussion}
+#' ## Count words
+#' 
+#' 1. How many words are in the sentence `x`?
+#'
+#' @solution
+#'
+#' There is more than one way of doing this but here is a solution.
+#' 
+#' ```{r}
+n_words <- length(strsplit(x, " ")[[1]])
+n_words
+#' ```
+#'
+#' 1. How many letters are in the sentence `x`?
+#' 
+#'
+#' ```{r}
+n_chars <- nchar(gsub("[^a-zA-Z]", "", x))
+n_chars
+#' ``` 
+```
+
+```{keypoints}
+#' ## Count words
+#' 
+#' 1. How many words are in the sentence `x`?
+#'
+#' @solution
+#'
+#' There is more than one way of doing this but here is a solution.
+#' 
+#' ```{r}
+n_words <- length(strsplit(x, " ")[[1]])
+n_words
+#' ```
+#'
+#' 1. How many letters are in the sentence `x`?
+#' 
+#'
+#' ```{r}
+n_chars <- nchar(gsub("[^a-zA-Z]", "", x))
+n_chars
+#' ``` 
+```
+
+```{objectives}
+#' ## Count words
+#' 
+#' 1. How many words are in the sentence `x`?
+#'
+#' @solution
+#'
+#' There is more than one way of doing this but here is a solution.
+#' 
+#' ```{r}
+n_words <- length(strsplit(x, " ")[[1]])
+n_words
+#' ```
+#'
+#' 1. How many letters are in the sentence `x`?
+#' 
+#'
+#' ```{r}
+n_chars <- nchar(gsub("[^a-zA-Z]", "", x))
+n_chars
+#' ``` 
+```
+
+```{prereq}
+#' ## Count words
+#' 
+#' 1. How many words are in the sentence `x`?
+#'
+#' @solution
+#'
+#' There is more than one way of doing this but here is a solution.
+#' 
+#' ```{r}
+n_words <- length(strsplit(x, " ")[[1]])
+n_words
+#' ```
+#'
+#' 1. How many letters are in the sentence `x`?
+#' 
+#'
+#' ```{r}
+n_chars <- nchar(gsub("[^a-zA-Z]", "", x))
+n_chars
+#' ``` 
+```
+
+```{solution}
+#' ## Count words
+#' 
+#' 1. How many words are in the sentence `x`?
+#'
+#' @solution
+#'
+#' There is more than one way of doing this but here is a solution.
+#' 
+#' ```{r}
+n_words <- length(strsplit(x, " ")[[1]])
+n_words
+#' ```
+#'
+#' 1. How many letters are in the sentence `x`?
+#' 
+#'
+#' ```{r}
+n_chars <- nchar(gsub("[^a-zA-Z]", "", x))
+n_chars
+#' ``` 
+```
+
+```{testimonial}
+#' ## Count words
+#' 
+#' 1. How many words are in the sentence `x`?
+#'
+#' @solution
+#'
+#' There is more than one way of doing this but here is a solution.
+#' 
+#' ```{r}
+n_words <- length(strsplit(x, " ")[[1]])
+n_words
+#' ```
+#'
+#' 1. How many letters are in the sentence `x`?
+#' 
+#'
+#' ```{r}
+n_chars <- nchar(gsub("[^a-zA-Z]", "", x))
+n_chars
+#' ``` 
+```
+
+
+Now that we know that there are `r n_words` words and `r n_chars` characters in the sentence. Let's add these 2 numbers
+
+
+```{solution}
+#' ## add these 2 numbers
+#' 
+#' @challenge
+#' Are these variables available?
+#' 
+#' ```{r}
+#' n_words + n_chars
+#' ```
+```
+
+
+```{keypoints}
+#' - "Define a function using `name <- function(...args...) {...body...}`."
+#' - "Call a function using `name(...values...)`."
+#' - "R looks for variables in the current stack frame before looking for them at the top level."
+#' - "Use `help(thing)` to view help for something."
+#' - "Put comments at the beginning of functions to provide help for that function."
+#' - "Annotate your code!"
+#' - "Specify default values for arguments when defining a function using `name = value` in the argument list."
+#' - "Arguments can be passed by matching based on name, by position, or by omitting them (in which case the default value is used)."
+```

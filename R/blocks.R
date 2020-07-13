@@ -11,7 +11,9 @@
 #' )
 #' roxygen2::parse_file(soln, env = NULL)
 roxy_tag_parse.roxy_tag_end <- function(x) {
-  roxygen2::tag_value(x)
+  # The end tag really doesn't need to do anything... it's just a marker
+  x$val <- ""
+  x
 }
 #' @export
 #' @rdname roxy_tag_parse

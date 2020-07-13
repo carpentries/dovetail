@@ -46,6 +46,7 @@
 #' knitr::knit(output = tmp, text = ptxt, encoding = "UTF-8", envir = parent.frame())
 #' if (interactive()) file.edit(tmp)
 parse_block <- function(txt, type = "challenge", opts="markdown='1'") {
+  this_type <- paste0("<div class='", type, "' ", opts, ">\n")
   if (length(txt) != 1) {
     stop("there is more than one text block here")
   }
@@ -55,20 +56,20 @@ parse_block <- function(txt, type = "challenge", opts="markdown='1'") {
   TXT <- gsub(code_pattern, "\n#' \\1", txt, perl = TRUE)
   parsed <- roxygen2::parse_text(paste0(TXT, "\nNULL"), env = NULL)
   if (length(parsed) == 0) {
-    return(txt)
+    return(paste0(this_type, "\n", txt, "\n\n</div>"))
   }
 
   parsed <- parsed[[1]]
   tags <- vapply(parsed$tags, function(i) i$tag, character(1))
 
   if (all(tags %nin% OUR_TAGS)) {
-    return(paste(vapply(parsed$tags, function(i) i$raw, character(1)), collapse = "\n"))
+    txt <- paste(vapply(parsed$tags, function(i) i$raw, character(1)), collapse = "\n")
+    return(paste0(this_type, "\n", txt, "\n\n</div>"))
   }
 
 
-  res <-
   res <- character(length(parsed$tags) + 2L)
-  res[[1]] <- paste0("<div class='", type, "' ", opts, ">\n")
+  res[[1]] <- this_type
   n <- 1L
   previous <- NULL
   parent <- NULL

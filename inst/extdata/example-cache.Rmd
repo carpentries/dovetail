@@ -1,0 +1,36 @@
+---
+title: Test the different knitr engines
+---
+
+```{r setup, include = FALSE}
+library(dovetail)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r some-code, cache = TRUE}
+x  <- "The cat purrrs on my lap."
+print(getwd())
+print(knitr::opts_chunk$get("cache.path"))
+```
+
+```{callout cacheme, cache = TRUE, message = TRUE}
+#' ```{r ifyoucan}
+message("this chunk will not be cached")
+s <- Sys.time()
+Sys.sleep(0.1)
+e <- Sys.time()
+print(getwd())
+#' ```
+#' I think it may be possible to cache this `r round(e - s, 2)` second chunk.
+#' 
+#' 
+#' `r x`
+#' 
+```
+
+```{discussion echo = TRUE}
+#' This code chunk should echo itself
+#' ```{r}
+x
+#' ```
+```

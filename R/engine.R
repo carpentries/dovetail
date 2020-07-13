@@ -9,34 +9,56 @@
 
 engine_generic_carp <- function(class) {
   function(options) {
-    # Avoid errors where there are multiple unnamed chunk labels
+    # Avoid errors where there are multiple unnamed chunk labels by changing the
+    # unnamed chunk labels to use our own counter.
     unc <- knitr::opts_knit$get("unnamed.chunk.label")
     on.exit(knitr::opts_knit$set(unnamed.chunk.label = unc))
-    # Change unnamed chunk labels to the time and a random 10-char string
-    randos <- function() {
-      paste(sample(c(letters, 0:9), 10, replace = TRUE), collapse = "")
-    }
-    knitr::opts_knit$set(unnamed.chunk.label = paste(as.character(Sys.time()), randos()))
+    knitr::opts_knit$set(unnamed.chunk.label = dove_chunk_label())
+
+    # Handling user-specified parameters
+    chunks <- knitr::opts_chunk$get()
+    on.exit(knitr::opts_chunk$set(c(chunks, list(coo = NULL))), add = TRUE)
+    options_no_engine <- options[!names(options) %in% c("code", "engine")]
+    coo <- isTRUE(options_no_engine[["coo"]])
+    # The cache is an interesting one. Because we are evaluating these chunks
+    # inside of the knitr environment, they will absolutely try to load the
+    # cache before it's done. We have to turn on cache.rebuild temporarily.
+    options_no_engine$cache <- FALSE
+    # the_cache <- list.files(
+    #   options$cache.path,
+    #   pattern = paste0(options$label, "_.*RData")
+    # )
+    # options_no_engine$cache.rebuild <- options$cache &&
+    #   (options$cache.rebuild || length(the_cache) == 0)
+    # this_hash <- options$hash
+    # options_no_engine$hash <- NULL
+    knitr::opts_chunk$set(options_no_engine)
 
     res <- parse_block(paste(options$code, collapse = "\n"), type = options$engine)
-    tmp <- tempfile(fileext = ".md")
-    on.exit(unlink(tmp), add = TRUE)
-    bd <- knitr::opts_knit$get("base.dir")
-    if (!is.null(bd)) {
-      wd <- getwd()
-      on.exit(setwd(wd), add = TRUE)
-      setwd(bd)
+
+    # This is to prevent an issue with knitting using relative paths. If this
+    # happens, then knitr sets the working directory to be something other than
+    # where we should be.
+    if (is.null(knitr::opts_knit$get("root.dir"))) {
+      on.exit(knitr::opts_knit$set(root.dir = NULL), add = TRUE)
+      knitr::opts_knit$set(root.dir = getwd())
     }
 
-    knitr::knit(
-      output = tmp,
+    out <- knitr::knit(
       text = res,
       encoding = "UTF-8",
       # https://stackoverflow.com/a/62417329/2752888
       envir = knitr::knit_global()
     )
-    out <- readLines(tmp)
-    paste(out, collapse = "\n")
+    # This is an internal option that I use show the input and output.
+    if (coo) {
+      out <- if (options$eval) out else "\r"
+      code <- paste(options$code, collapse = "\n")
+      code <- paste0("```r\n", code, "\n```")
+      return(paste0(code, "\n", out, "\n"))
+    } else {
+      return(out)
+    }
   }
 }
 

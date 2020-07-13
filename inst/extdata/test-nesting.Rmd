@@ -1,0 +1,60 @@
+---
+title: Test the different knitr engines
+---
+
+```{r setup, include = FALSE}
+library(dovetail)
+library(knitr)
+source(dvt_opts())
+```
+
+```{r some-code}
+x  <- "The cat purrrs on my lap."
+```
+
+```{challenge}
+#' ## Count words
+#' 
+#' 1. How many words are in the sentence `x`?
+#'
+#' @solution
+#'
+#' There is more than one way of doing this but here is a solution.
+#' 
+#'
+#' @callout
+#' 
+#' ```{r}
+n_words <- length(strsplit(x, " ")[[1]])
+n_words
+#' ```
+#'
+#' @end
+#' @end
+#' 
+#' 1. How many letters are in the sentence `x`?
+#'
+#' @solution
+#' 
+#' ```{r}
+n_chars <- nchar(gsub("[^a-zA-Z]", "", x))
+n_chars
+#' ```
+#'
+#' @end
+#' 
+#' And now we know the rest of the story
+```
+
+Now that we know that there are `r n_words` words and `r n_chars` characters in the sentence. Let's add these 2 numbers
+
+```{challenge}
+#' ## add these 2 numbers
+#' 
+#' @solution
+#' Are these variables available?
+#' 
+#' ```{r}
+#' n_words + n_chars
+#' ```
+```

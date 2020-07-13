@@ -1,0 +1,43 @@
+---
+title: Test the different knitr engines
+---
+
+```{r setup, include = FALSE}
+library(dovetail)
+source(dvt_opts())
+```
+
+
+This is a simlar setup to 
+<http://swcarpentry.github.io/r-novice-inflammation/05-cmdline/index.html#a-simple-command-line-program>
+
+```{challenge}
+#' 
+#'Let's try the ways we can add two numbers
+#'
+#' 1. Use an operator
+#'@solution Use `+`
+#' 
+#' ```{r}
+#' x <- print(1 + 1)
+#' ```
+#' @end
+#' 2. Use a function
+#' @solution Use `sum()`
+#' 
+#' ```{r}
+#' x <- print(sum(1, 2))
+#' ```
+#' @end
+#' 3. Use an operator *like* a function
+#' @solution Use `` `+`() ``
+#' 
+#' ```{r}
+#' x <- print(`+`(2, 3))
+#' ```
+#' @end
+#' 
+#' R is kinda weird, no?
+```
+
+`r 3 + 5`

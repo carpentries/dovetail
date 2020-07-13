@@ -7,22 +7,29 @@ output: html_document
 
 ```{r setup, include=FALSE}
 library("dovetail")
-knitr::opts_chunk$set(echo = TRUE)
-nlines <- length(readLines('produces-plot.Rmd'))
+source(dvt_opts())
+NLINES <- length(readLines('produces-plot.Rmd'))
 ```
 
-```{callout uses-external}
+```{solution}
 #' ## This block uses an external resource
 #' 
 #' Some blocks will need to use an external resource like a file or a script
 #' 
-#' For example, we know that there are `r nlines`
+#' For example, we know that there are `r NLINES`
 #' lines in the `produces-plot.Rmd` example file.
+#'
+#' @callout
 #'
 #' ```{r echo = TRUE}
 nlines <- length(readLines('produces-plot.Rmd'))
 message(paste("there are", nlines, "lines in produces-plot.Rmd"))
 #' ```
+#'
+#' @end
 #' 
 #' If this works, it will be a miracle!
 ```
+
+
+there were `r nlines` lines in produces-plot.Rmd.
