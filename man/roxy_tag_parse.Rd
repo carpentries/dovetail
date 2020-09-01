@@ -2,6 +2,7 @@
 % Please edit documentation in R/blocks.R
 \name{roxy_tag_parse.roxy_tag_end}
 \alias{roxy_tag_parse.roxy_tag_end}
+\alias{roxy_tag_parse.roxy_tag_questions}
 \alias{roxy_tag_parse.roxy_tag_solution}
 \alias{roxy_tag_parse.roxy_tag_callout}
 \alias{roxy_tag_parse.roxy_tag_challenge}
@@ -14,6 +15,8 @@
 \title{Roxygen tags for dovetail}
 \usage{
 \method{roxy_tag_parse}{roxy_tag_end}(x)
+
+\method{roxy_tag_parse}{roxy_tag_questions}(x)
 
 \method{roxy_tag_parse}{roxy_tag_solution}(x)
 

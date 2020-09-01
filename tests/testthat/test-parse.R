@@ -1,4 +1,5 @@
 test_that("parse_block works with simple cases", {
+
   expect_identical(parse_block("what"), mock_block("what"))
   expect_error(parse_block(letters), "there is more than one text block here")
 

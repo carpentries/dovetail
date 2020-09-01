@@ -17,6 +17,11 @@ roxy_tag_parse.roxy_tag_end <- function(x) {
 }
 #' @export
 #' @rdname roxy_tag_parse
+roxy_tag_parse.roxy_tag_questions <- function(x) {
+  tag_section(x)
+}
+#' @export
+#' @rdname roxy_tag_parse
 roxy_tag_parse.roxy_tag_solution <- function(x) {
   tag_section(x)
 }
@@ -74,6 +79,11 @@ roxy_tag_parse.roxy_tag_challenge <- function(x) {
 #' @rdname roxy_tag_parse
 roxy_tag_parse.roxy_tag_solution <- function(x) {
   tag_section(x)
+}
+
+#' @export
+format.roxy_tag_questions <- function(x, ...) {
+  rxyfmt(x)
 }
 
 #' @export

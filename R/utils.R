@@ -6,6 +6,7 @@ OUR_TAGS <- c(
   "keypoints",
   "objectives",
   "prereq",
+  "questions",
   "solution",
   "testimonial",
   "end"

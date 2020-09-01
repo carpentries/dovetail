@@ -177,6 +177,29 @@ n_chars
 #' ``` 
 ```
 
+```{questions}
+#' ## Count words
+#' 
+#' 1. How many words are in the sentence `x`?
+#'
+#' @solution
+#'
+#' There is more than one way of doing this but here is a solution.
+#' 
+#' ```{r}
+n_words <- length(strsplit(x, " ")[[1]])
+n_words
+#' ```
+#'
+#' 1. How many letters are in the sentence `x`?
+#' 
+#'
+#' ```{r}
+n_chars <- nchar(gsub("[^a-zA-Z]", "", x))
+n_chars
+#' ``` 
+```
+
 ```{solution}
 #' ## Count words
 #' 
