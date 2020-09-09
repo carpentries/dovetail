@@ -1,0 +1,30 @@
+if (!requireNamespace("remotes")) {
+  install.packages("remotes")
+}
+
+remotes::install_github("carpentries/pegboard")
+library("pegboard")
+library("purrr")
+
+l <- Lesson$new(".")
+
+message("1/9: Using the dovetail package")
+purrr::walk(l$episodes, ~.x$use_dovetail())
+message("2/9: Using the sandpaper package (converting python chunks to RMarkdown)")
+purrr::walk(l$episodes, ~.x$use_sandpaper(rmd = TRUE))
+message("3/9: Removing output code blocks")
+purrr::walk(l$episodes, ~.x$remove_output())
+message("4/9: Removing error code blocks")
+purrr::walk(l$episodes, ~.x$remove_error())
+message("5/9: Converting block quotes to dovetail chunks")
+purrr::walk(l$episodes, ~.x$unblock())
+message("6/9: Moving questions from yaml to body")
+purrr::walk(l$episodes, ~.x$move_questions())
+message("7/9: Moving objectives from yaml to body")
+purrr::walk(l$episodes, ~.x$move_objectives())
+message("8/9: Moving keypoints from yaml to body")
+purrr::walk(l$episodes, ~.x$move_keypoints())
+message("9/7: Writing files to disk")
+purrr::walk(l$episodes, ~.x$write(path = dirname(.x$path, format = "Rmd")))
+message("Done.")
+message("\nTo keep these changes, add and commit them to git.\nTo discard these changes, use\n\n  git checkout -- _episodes_rmd/")
