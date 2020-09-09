@@ -22,7 +22,7 @@ Imports:
 Suggests: 
     covr,
     fs,
-    pegboard,
+    pegboard (>= 0.0.0.9002),
     remotes,
     reticulate,
     rlang,
