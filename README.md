@@ -15,6 +15,9 @@ status](https://github.com/carpentries/dovetail/workflows/R-CMD-check/badge.svg)
 coverage](https://codecov.io/gh/carpentries/dovetail/branch/master/graph/badge.svg)](https://codecov.io/gh/carpentries/dovetail?branch=master)
 <!-- badges: end -->
 
+> **This repository has been archived as this solution was not found to be favorable for our community**
+> More information can be found [in our blog post detailing the results of Alpha Testing](https://carpentries.org/blog/2021/07/infrastructure-testing/)
+
 > A dovetail joint or simply dovetail is a joinery technique most
 > commonly used in woodworking joinery (carpentry) …
 > 
